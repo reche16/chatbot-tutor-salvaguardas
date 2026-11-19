@@ -1,0 +1,8 @@
+.venv
+db.sqlite3
+staticfiles
+logs
+fila_reprocessamento.jsonl
+avaliacao/resultados
+__pycache__
+.env

@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block titulo %}{{ disciplina.nome }} · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="chat">
+  <div class="barra">
+    <strong>{{ disciplina.nome }}</strong>
+    <label class="rotulo-modo" for="modo">Atendimento</label>
+    <select id="modo">
+      <option value="DUVIDA">Dúvida livre</option>
+      <option value="CONCEITO">Explicar um conceito</option>
+      {% for lista in listas %}
+        <optgroup label="{{ lista.titulo }}{% if lista.avaliativa %} (avaliativa){% endif %}">
+          {% for ex in lista.exercicios.all %}
+            <option value="EXERCICIO" data-exercicio="{{ ex.id }}" data-enunciado="{{ ex.enunciado }}"
+                    data-titulo="{{ lista.titulo }} · Exercício {{ ex.ordem }}">{% if lista.avaliativa %}Avaliativa{% else %}Prática{% endif %} · Ex. {{ ex.ordem }} · {{ ex.enunciado|truncatechars:50 }}</option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+    <a class="botao secundario" href="?nova=1">Nova conversa</a>
+  </div>
+  <div id="enunciado" hidden></div>
+  <div id="historico-chat" role="log" aria-label="Conversa com o tutor" aria-live="polite">
+    {% if not interacoes %}
+      <div class="msg tutor">Olá! Sou o tutor de {{ disciplina.nome }}. Pergunte sobre o conteúdo da disciplina. Para fazer um exercício das listas, escolha-o no menu <strong>Atendimento</strong>, aqui em cima: eu te oriento passo a passo, sem entregar a resposta.</div>
+    {% endif %}
+    {% for i in interacoes %}
+      <div class="msg aluno">{{ i.pergunta }}{% if i.exercicio %}<div class="meta">{{ i.exercicio }}</div>{% endif %}</div>
+      <div class="msg tutor{% if not i.respondida %} sem-resposta{% endif %}" data-interacao="{{ i.id }}" data-oferece="{{ i.oferece_encaminhamento|yesno:'1,0' }}" data-respondida="{{ i.respondida|yesno:'1,0' }}"
+           data-avaliacao="{% if i.avaliacao %}{{ i.avaliacao.util|yesno:'util,nao' }}{% endif %}" data-encaminhada="{% if i.encaminhamento %}1{% endif %}">{{ i.resposta|default:"(sem resposta)" }}</div>
+    {% endfor %}
+  </div>
+  <form id="form-chat">
+    <div class="caixa-entrada">
+    <textarea aria-label="Sua mensagem" rows="2" id="entrada" placeholder="Escreva sua dúvida… (Enter envia, Shift+Enter quebra linha)" required maxlength="4000"></textarea>
+    <button type="submit" id="enviar">Enviar</button>
+    </div>
+    <div class="rodape-dica"><span>Use o material da disciplina como referência.</span><span>Enter envia · Shift+Enter quebra linha</span></div>
+  </form>
+</div>
+{% csrf_token %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  const urlMsg = "{% url 'api_mensagem' conversa.id %}";
+  const urlAvaliar = id => `/api/interacao/${id}/avaliar/`;
+  const urlEncaminhar = id => `/api/interacao/${id}/encaminhar/`;
+  const caixa = document.getElementById('historico-chat');
+  const form = document.getElementById('form-chat');
+  const entrada = document.getElementById('entrada');
+  const enviar = document.getElementById('enviar');
+  const modo = document.getElementById('modo');
+  const enunciado = document.getElementById('enunciado');
+
+  async function post(url, dados) {
+    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf }, body: JSON.stringify(dados) });
+    const corpo = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(corpo.erro || `erro ${r.status}`);
+    return corpo;
+  }
+
+  function botao(texto, aoClicar, secundario = true) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = texto; b.className = secundario ? 'fantasma sm' : 'sm';
+    b.addEventListener('click', aoClicar); return b;
+  }
+
+  // Mesmos endpoints e payloads; notas opcionais em campos inline.
+  function decorar(el) {
+    const id = el.dataset.interacao; if (!id) return;
+    const acoes = document.createElement('div'); acoes.className = 'acoes';
+    const status = document.createElement('span'); status.className = 'suave';
+    status.setAttribute('role', 'status');
+    let editor;
+    async function executar(b, tarefa) {
+      const botoes = Array.from(acoes.querySelectorAll('button'));
+      botoes.forEach(botao => { botao.disabled = true; });
+      try { await tarefa(); }
+      catch (err) { status.textContent = 'Não foi possível concluir: ' + err.message; }
+      finally {
+        botoes.forEach(botao => { botao.disabled = false; });
+        if (!editor) (acoes.querySelector('button') || status).focus();
+      }
+    }
+    function complemento(rotulo, confirmar, tarefa) {
+      if (editor) editor.remove();
+      editor = document.createElement('div'); editor.className = 'complemento';
+      const label = document.createElement('label'); label.textContent = rotulo;
+      const campo = document.createElement('textarea'); campo.rows = 2; campo.maxLength = 4000;
+      campo.id = 'nota-' + id; label.htmlFor = campo.id;
+      const salvar = botao(confirmar, () => executar(salvar, async () => {
+        await tarefa(campo.value);
+        editor.remove(); editor = null;
+        // O foco volta após os botões serem reabilitados no finally.
+        status.tabIndex = -1; status.focus();
+      }), false);
+      const cancelar = botao('Cancelar', () => { editor.remove(); editor = null; acoes.querySelector('button')?.focus(); });
+      editor.append(label, campo, salvar, cancelar); acoes.append(editor); campo.focus();
+    }
+    if (el.dataset.avaliacao) {
+      status.textContent = el.dataset.avaliacao === 'util' ? 'Você marcou como útil.' : 'Você marcou como não útil.';
+    } else {
+      const util = botao('Útil', () => executar(util, async () => {
+        await post(urlAvaliar(id), { util: true }); limpar('Obrigado pela avaliação.');
+      }));
+      const naoUtil = botao('Não útil', () => complemento('O que faltou na resposta? (opcional)', 'Enviar avaliação', async j => {
+        await post(urlAvaliar(id), { util: false, justificativa: j }); limpar('Obrigado! Sua avaliação ajuda o professor a melhorar o material.');
+      }));
+      util.dataset.acao = naoUtil.dataset.acao = 'avaliar'; acoes.append(util, naoUtil);
+    }
+    if (el.dataset.encaminhada) {
+      status.textContent += ' Dúvida encaminhada ao professor.';
+    } else {
+      const encaminhar = botao('Encaminhar ao professor', () => complemento('Mensagem para o professor (opcional)', 'Confirmar encaminhamento', async m => {
+        await post(urlEncaminhar(id), { mensagem: m });
+        el.dataset.encaminhada = '1'; encaminhar.remove();
+        status.textContent = 'Dúvida encaminhada. A resposta aparece no seu histórico.';
+      }), !(el.dataset.respondida === '0' || el.dataset.oferece === '1'));
+      acoes.append(encaminhar);
+    }
+    acoes.append(status); el.append(acoes);
+    function limpar(texto) {
+      acoes.querySelectorAll('[data-acao="avaliar"]').forEach(b => b.remove());
+      el.dataset.avaliacao = texto === 'Obrigado pela avaliação.' ? 'util' : 'nao'; status.textContent = texto;
+    }
+  }
+
+  // Markdown mínimo: escapa todo o HTML primeiro e só então marca código e negrito.
+  function escapar(t) { return t.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function renderizar(el, texto) {
+    const partes = escapar(texto).split(/```[\w+-]*\n?/);
+    el.innerHTML = partes.map((p, i) => i % 2
+      ? '<pre><code>' + p.replace(/\n$/, '') + '</code></pre>'
+      : p.replace(/`([^`\n]+)`/g, '<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,:;!?]|$)/gm, '$1<em>$2</em>')
+          .replace(/\$([^$\n]{1,40})\$/g, '$1')
+    ).join('');
+  }
+
+  function bolha(classe, texto) {
+    const d = document.createElement('div'); d.className = 'msg ' + classe; d.textContent = texto;
+    caixa.append(d); caixa.scrollTop = caixa.scrollHeight; return d;
+  }
+
+  caixa.querySelectorAll('.msg.tutor[data-interacao]').forEach(el => { renderizar(el, el.textContent); decorar(el); });
+  caixa.scrollTop = caixa.scrollHeight;
+
+  modo.addEventListener('change', () => {
+    const opt = modo.selectedOptions[0];
+    if (opt.dataset.enunciado) {
+      enunciado.hidden = false;
+      enunciado.replaceChildren();
+      const cabeca = document.createElement('div'); cabeca.className = 'enunciado-cabeca';
+      const titulo = document.createElement('strong'); titulo.textContent = opt.dataset.titulo || 'Exercício';
+      const sair = botao('Voltar à dúvida livre', () => { modo.value = 'DUVIDA'; modo.dispatchEvent(new Event('change')); });
+      sair.classList.add('sm');
+      cabeca.append(titulo, sair);
+      const texto = document.createElement('p'); texto.textContent = opt.dataset.enunciado;
+      // Em tela baixa o enunciado pode ser recolhido para sobrar espaço para a conversa.
+      const recolher = botao('Recolher', () => { texto.hidden = !texto.hidden; recolher.textContent = texto.hidden ? 'Ver enunciado' : 'Recolher'; });
+      recolher.classList.add('sm');
+      cabeca.insertBefore(recolher, sair);
+      enunciado.append(cabeca, texto);
+      entrada.placeholder = 'Mande sua dúvida ou sua tentativa de solução…';
+    }
+    else { enunciado.hidden = true; entrada.placeholder = modo.value === 'CONCEITO' ? 'Qual conceito você quer entender?' : 'Escreva sua dúvida…'; }
+  });
+
+  entrada.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); } });
+
+  function oferecerReenvio(el, texto) {
+    let acoes = el.querySelector('.acoes');
+    if (!acoes) { acoes = document.createElement('div'); acoes.className = 'acoes'; el.append(acoes); }
+    acoes.prepend(botao('Tentar de novo', () => { entrada.value = texto; form.requestSubmit(); }, false));
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const texto = entrada.value.trim(); if (!texto || enviar.disabled) return;
+    const opt = modo.selectedOptions[0];
+    bolha('aluno', texto); entrada.value = ''; enviar.disabled = true;
+    const espera = bolha('tutor digitando', '');
+    espera.innerHTML = '<span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span> Consultando material da disciplina…';
+    try {
+      const r = await post(urlMsg, { mensagem: texto, tipo: modo.value, exercicio_id: opt.dataset.exercicio || null });
+      espera.className = 'msg tutor' + (r.respondida ? '' : ' sem-resposta');
+      renderizar(espera, r.resposta);
+      if (r.interacao_id) { espera.dataset.interacao = r.interacao_id; espera.dataset.respondida = r.respondida ? '1' : '0'; espera.dataset.oferece = r.oferece_encaminhamento ? '1' : '0'; decorar(espera); }
+      // Falha passageira do serviço: oferece reenviar a mesma pergunta sem redigitar.
+      if ((r.motivo || '').startsWith('pln_')) oferecerReenvio(espera, texto);
+    } catch (err) {
+      espera.className = 'msg tutor sem-resposta'; espera.textContent = 'Não consegui enviar: ' + err.message;
+      oferecerReenvio(espera, texto);
+    } finally { enviar.disabled = false; entrada.focus(); caixa.scrollTop = caixa.scrollHeight; }
+  });
+})();
+</script>
+{% endblock %}

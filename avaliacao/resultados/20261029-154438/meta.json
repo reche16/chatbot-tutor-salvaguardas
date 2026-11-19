@@ -1,0 +1,20 @@
+{
+ "conjunto": "conjunto_teste.json",
+ "sha256": "81baa624fcda42802e0b672519108502471ca78a54ae9c56f0ffa8b74c207525",
+ "perguntas": 150,
+ "commit": "a52ee43",
+ "provedor": "gemini",
+ "modelo": "gemini-3.5-flash-lite",
+ "temperatura": 1.0,
+ "raciocinio": "minimal",
+ "timeouts_ms": [
+  2000,
+  3500,
+  5000
+ ],
+ "limiar_confianca": 0.5,
+ "paralelo": 8,
+ "rpm": 240,
+ "inicio": "2026-10-29T15:44:38",
+ "fim": "2026-10-29T16:04:11"
+}

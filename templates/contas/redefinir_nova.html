@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Nova senha · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="cartao login"><h1>Nova senha</h1>
+{% if validlink %}
+<form method="post">{% csrf_token %}
+  {{ form.non_field_errors }}
+  <div class="campo">{{ form.new_password1.errors }}<label for="id_new_password1">Nova senha</label>
+  <input type="password" name="new_password1" id="id_new_password1" autocomplete="new-password" required></div>
+  <div class="campo">{{ form.new_password2.errors }}<label for="id_new_password2">Repita a senha</label>
+  <input type="password" name="new_password2" id="id_new_password2" autocomplete="new-password" required></div>
+  <button type="submit">Salvar</button>
+</form>
+{% else %}<p>O link é inválido ou expirou. Peça outro.</p>{% endif %}
+</div>
+{% endblock %}

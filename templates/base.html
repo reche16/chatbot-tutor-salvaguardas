@@ -1,0 +1,58 @@
+{% load static %}<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Chatbot Tutor{% endblock %}</title>
+  <script>try { const t = localStorage.getItem('tema'); if (t) document.documentElement.dataset.tema = t; } catch (e) {}</script>
+  <link rel="stylesheet" href="{% static 'tutor.css' %}">
+</head>
+<body{% if user.eh_professor %} class="docente"{% endif %}>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo"><div class="faixa">
+  <a class="marca" href="{% url 'inicio' %}" {% if request.resolver_match.url_name == 'inicio' %}aria-current="page"{% endif %}><svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Chatbot Tutor</a>
+  {% if user.is_authenticated %}
+  <span class="perfil">{% if user.eh_aluno %}Aluno{% elif user.eh_professor %}Docente{% else %}Administração{% endif %}</span>
+  <nav aria-label="Navegação principal">
+    {% if user.eh_aluno %}
+      <a href="{% url 'inicio' %}" {% if request.resolver_match.url_name == 'inicio' %}aria-current="page"{% endif %}>Disciplinas</a>
+      <a href="{% url 'historico' %}" {% if request.resolver_match.url_name == 'historico' %}aria-current="page"{% endif %}>Histórico</a>
+      <a href="{% url 'avaliar_sistema' %}" {% if request.resolver_match.url_name == 'avaliar_sistema' %}aria-current="page"{% endif %}>Avaliar o sistema</a>
+      <a href="{% url 'como_funciona' %}" {% if request.resolver_match.url_name == 'como_funciona' %}aria-current="page"{% endif %}>Como funciona</a>
+    {% elif user.eh_professor %}
+      <a href="{% url 'professor_painel' %}" {% if request.resolver_match.url_name == 'professor_painel' %}aria-current="page"{% endif %}>Métricas</a>
+      <a href="{% url 'professor_duvidas' %}" {% if request.resolver_match.url_name == 'professor_duvidas' %}aria-current="page"{% endif %}>Dúvidas</a>
+      <a href="{% url 'professor_revisao' %}" {% if request.resolver_match.url_name == 'professor_revisao' %}aria-current="page"{% endif %}>Revisão</a>
+      <a href="{% url 'conteudo:index' %}">Conteúdo</a>
+      <a href="{% url 'como_funciona' %}" {% if request.resolver_match.url_name == 'como_funciona' %}aria-current="page"{% endif %}>Como funciona</a>
+    {% elif user.eh_administrador %}
+      <a href="{% url 'admin:index' %}">Administração</a>
+    {% endif %}
+  </nav>
+  <div class="conta"><span class="usuario" title="{{ user.first_name|default:user.email }}">{{ user.first_name|default:user.email }}</span>
+  <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+    <button class="fantasma" type="submit">Sair</button>
+  </form></div>
+  {% endif %}
+  <button type="button" class="fantasma tema" id="alternar-tema" aria-label="Alternar tema claro ou escuro">Tema</button>
+</div></header>
+<main id="conteudo" tabindex="-1">
+  {% if messages %}<ul class="mensagens" aria-live="polite">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
+  {% block conteudo %}{% endblock %}
+</main>
+<script>
+(function () {
+  const b = document.getElementById('alternar-tema'), raiz = document.documentElement;
+  const atual = () => raiz.dataset.tema || (matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
+  const rotulo = () => { b.textContent = atual() === 'escuro' ? 'Tema claro' : 'Tema escuro'; };
+  b.addEventListener('click', () => {
+    raiz.dataset.tema = atual() === 'escuro' ? 'claro' : 'escuro';
+    try { localStorage.setItem('tema', raiz.dataset.tema); } catch (e) {}
+    rotulo();
+  });
+  rotulo();
+})();
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

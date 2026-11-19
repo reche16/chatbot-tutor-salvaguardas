@@ -1,0 +1,614 @@
+{
+  "disciplina": {
+    "codigo": "ALG",
+    "nome": "Algoritmos e Programação"
+  },
+  "topicos": [
+    {
+      "ordem": 1,
+      "titulo": "Algoritmos e Pseudocódigo",
+      "palavras_chave": [
+        "algoritmo",
+        "pseudocodigo",
+        "logica",
+        "fluxograma",
+        "sequencia",
+        "passo a passo",
+        "problema"
+      ],
+      "descricao": "Conceito de algoritmo como sequência finita de passos lógicos para resolver um problema e representação em linguagem natural estruturada (pseudocódigo)."
+    },
+    {
+      "ordem": 2,
+      "titulo": "Variáveis, Tipos de Dados, Entrada e Saída",
+      "palavras_chave": [
+        "variavel",
+        "int",
+        "float",
+        "str",
+        "bool",
+        "input",
+        "print",
+        "tipo",
+        "conversao",
+        "atribuicao"
+      ],
+      "descricao": "Armazenamento de dados em memória com variáveis, tipos primitivos em Python e interação com o usuário via funções input() e print()."
+    },
+    {
+      "ordem": 3,
+      "titulo": "Operadores e Expressões",
+      "palavras_chave": [
+        "operadores",
+        "aritmeticos",
+        "relacionais",
+        "logicos",
+        "divisao",
+        "resto",
+        "modulo",
+        "potencia",
+        "precedencia",
+        "and",
+        "or",
+        "not"
+      ],
+      "descricao": "Construção de expressões aritméticas, comparativas e booleanas, incluindo regras de precedência e operadores de divisão inteira e módulo."
+    },
+    {
+      "ordem": 4,
+      "titulo": "Estruturas Condicionais",
+      "palavras_chave": [
+        "if",
+        "elif",
+        "else",
+        "condicional",
+        "decisao",
+        "desvio",
+        "indentacao",
+        "condicao",
+        "aninhado"
+      ],
+      "descricao": "Controle de fluxo de execução por meio de estruturas de decisão simples, compostas e encadeadas em Python."
+    },
+    {
+      "ordem": 5,
+      "titulo": "Laços de Repetição: while",
+      "palavras_chave": [
+        "while",
+        "laco",
+        "repeticao",
+        "loop",
+        "contador",
+        "acumulador",
+        "sentinela",
+        "loop infinito",
+        "break",
+        "continue"
+      ],
+      "descricao": "Repetição condicional controlada por teste no início, uso de variáveis contadoras e acumuladoras e prevenção de laços infinitos."
+    },
+    {
+      "ordem": 6,
+      "titulo": "Laços de Repetição: for e range",
+      "palavras_chave": [
+        "for",
+        "range",
+        "iteracao",
+        "sequencia",
+        "passo",
+        "repeticao contada",
+        "indice"
+      ],
+      "descricao": "Iteração sobre sequências conhecidas e geração de intervalos numéricos com a função range(inicio, fim, passo)."
+    },
+    {
+      "ordem": 7,
+      "titulo": "Listas (Vetores)",
+      "palavras_chave": [
+        "lista",
+        "vetor",
+        "array",
+        "indice",
+        "append",
+        "len",
+        "fatiamento",
+        "slice",
+        "mutavel",
+        "percorrer"
+      ],
+      "descricao": "Coleções ordenadas e mutáveis de elementos, acesso posicional por índice, fatiamento e métodos básicos de manipulação."
+    },
+    {
+      "ordem": 8,
+      "titulo": "Strings e Manipulação de Texto",
+      "palavras_chave": [
+        "string",
+        "texto",
+        "caractere",
+        "imutavel",
+        "split",
+        "join",
+        "lower",
+        "upper",
+        "strip",
+        "replace",
+        "f-string"
+      ],
+      "descricao": "Representação e processamento de cadeias de caracteres, imutabilidade, indexação, fatiamento e métodos de formatação e busca."
+    },
+    {
+      "ordem": 9,
+      "titulo": "Funções e Modularização",
+      "palavras_chave": [
+        "funcao",
+        "def",
+        "parametro",
+        "argumento",
+        "return",
+        "retorno",
+        "escopo",
+        "modularizacao",
+        "reuso",
+        "import",
+        "biblioteca",
+        "modulo",
+        "math",
+        "random"
+      ],
+      "descricao": "Decomposição de problemas em sub-rotinas reutilizáveis com definição de parâmetros, retorno de valores e escopo local de variáveis."
+    },
+    {
+      "ordem": 10,
+      "titulo": "Matrizes (Listas de Listas)",
+      "palavras_chave": [
+        "matriz",
+        "lista de listas",
+        "bidimensional",
+        "linha",
+        "coluna",
+        "diagonal",
+        "lacos aninhados",
+        "tabela"
+      ],
+      "descricao": "Representação de estruturas tabulares bidimensionais em Python usando listas aninhadas e percorrimento com dois laços for."
+    }
+  ],
+  "itens": [
+    {
+      "topico": 1,
+      "tipo": "MATERIAL",
+      "titulo": "Conceito de algoritmo e estrutura básica de solução",
+      "conteudo": "Um algoritmo é uma sequência finita, ordenada e não ambígua de instruções que, aplicadas a um conjunto de dados de entrada, produzem um resultado esperado (saída) em tempo finito. Na programação de computadores, todo algoritmo costuma ser dividido em três etapas fundamentais: Entrada (leitura dos dados fornecidos pelo usuário ou por outra fonte), Processamento (transformação dos dados por meio de cálculos, comparações e repetições) e Saída (apresentação do resultado obtido). Antes de escrever código diretamente em Python, é recomendável planejar o algoritmo em pseudocódigo, descrevendo cada etapa em português estruturado.\n\nExemplo de estrutura em pseudocódigo versus Python para calcular o dobro de um número:\n```python\n# 1. Entrada: ler um número inteiro\nnumero = int(input(\"Digite um número: \"))\n\n# 2. Processamento: multiplicar por 2\ndobro = numero * 2\n\n# 3. Saída: mostrar o resultado\nprint(\"O dobro é:\", dobro)\n```\nSeguir essa divisão ajuda a identificar rapidamente quais dados são necessários antes de iniciar os cálculos."
+    },
+    {
+      "topico": 1,
+      "tipo": "MATERIAL",
+      "titulo": "Do pseudocódigo ao código em Python: teste de mesa",
+      "conteudo": "O teste de mesa (ou simulação manual) é a técnica de executar um algoritmo linha por linha usando papel ou uma tabela, anotando o valor de cada variável após cada instrução. Ele permite encontrar erros de lógica antes mesmo de rodar o programa no computador. Ao traduzir um pseudocódigo para Python, cada ação verbal torna-se um comando específico: 'Leia X' vira uma chamada a `input()`, 'Escreva Y' vira `print(Y)` e 'Faça Z receber A + B' vira uma atribuição `Z = A + B`.\n\nConsidere o exemplo abaixo e seu acompanhamento linha a linha:\n```python\na = 5\nb = 3\na = a + b   # agora 'a' vale 8 e 'b' continua 3\nb = a - b   # agora 'b' vale 8 - 3 = 5\nprint(a, b) # exibe: 8 5\n```\nNote que a ordem das instruções altera completamente o resultado final. Por isso, em algoritmos sequenciais, cada linha só é executada depois que a linha anterior termina."
+    },
+    {
+      "topico": 1,
+      "tipo": "FAQ",
+      "titulo": "Qual a diferença entre algoritmo, pseudocódigo e programa em Python?",
+      "conteudo": "Essa dúvida é muito comum no início da disciplina. O **algoritmo** é a ideia lógica, ou seja, o método passo a passo para resolver um problema, independentemente de como ele é escrito. O **pseudocódigo** (também chamado de Portugol) é uma forma de escrever esse algoritmo em português estruturado, pensada para humanos lerem sem se preocupar com regras rígidas de pontuação de uma linguagem real. Já o **programa em Python** é a implementação concreta desse algoritmo em uma linguagem de programação que o computador consegue interpretar e executar.\n\nVeja a mesma lógica nos dois formatos:\n```python\n# Em pseudocódigo:\n# Leia base, altura\n# area <- (base * altura) / 2\n# Escreva area\n\n# Em Python:\nbase = float(input(\"Base: \"))\naltura = float(input(\"Altura: \"))\narea = (base * altura) / 2\nprint(\"Área:\", area)\n```\nOu seja: primeiro você pensa no algoritmo (às vezes rascunhando em pseudocódigo) e depois o traduz para Python."
+    },
+    {
+      "topico": 1,
+      "tipo": "FAQ",
+      "titulo": "Como sei por onde começar quando leio o enunciado de um exercício?",
+      "conteudo": "Quando você trava diante de um enunciado em branco, o melhor caminho é nunca começar digitando código imediatamente. Em vez disso, responda a três perguntas no papel ou em comentários no topo do arquivo:\n1. **O que o programa recebe (Entrada)?** Identifique quais valores o usuário precisa digitar e de que tipo eles são (inteiros, reais ou texto).\n2. **O que o programa deve mostrar no final (Saída)?** Verifique exatamente qual informação o enunciado pede para exibir.\n3. **Qual regra transforma a entrada na saída (Processamento)?** Escreva a fórmula matemática ou a condição necessária.\n\n```python\n# Enunciado: converter temperatura de Celsius para Fahrenheit.\n# 1. Entrada: temperatura em Celsius (float)\nc = float(input(\"Temperatura em °C: \"))\n# 2. Processamento: aplicar a fórmula F = C * 1.8 + 32\nf = c * 1.8 + 32\n# 3. Saída: mostrar temperatura em Fahrenheit\nprint(\"Temperatura em °F:\", f)\n```\nSeparar essas três partes reduz bastante a ansiedade e evita esquecer variáveis importantes."
+    },
+    {
+      "topico": 2,
+      "tipo": "MATERIAL",
+      "titulo": "Variáveis e tipos primitivos de dados em Python",
+      "conteudo": "Uma variável é um nome associado a um espaço na memória do computador para guardar um valor durante a execução do programa. Em Python, a tipagem é dinâmica: não é preciso declarar o tipo antes de usar a variável, pois ele é inferido a partir do valor atribuído com o operador `=`. Os quatro tipos primitivos essenciais na disciplina são: `int` (números inteiros, positivos ou negativos, sem casas decimais), `float` (números reais de ponto flutuante, escritos com ponto `.` e não vírgula), `str` (textos delimitados por aspas simples ou duplas) e `bool` (valores lógicos `True` ou `False`).\n\n```python\nidade = 19              # int\nnota_final = 7.5        # float\nnome_aluno = \"Ana\"      # str\naprovado = True         # bool\n\nprint(type(idade))      # <class 'int'>\nprint(type(nota_final)) # <class 'float'>\n```\nOs nomes de variáveis devem começar com letra ou sublinhado `_`, não podem conter espaços nem acentos e diferenciam maiúsculas de minúsculas (`Nota` é diferente de `nota`)."
+    },
+    {
+      "topico": 2,
+      "tipo": "MATERIAL",
+      "titulo": "Entrada de dados com input(), conversão de tipos e saída com print()",
+      "conteudo": "Para interagir com o usuário no terminal, utilizamos a função `input()` para ler dados do teclado e a função `print()` para exibir resultados na tela. Um detalhe crucial em Python é que `input()` **sempre retorna uma string (`str`)**, mesmo que o usuário digite apenas dígitos numéricos. Portanto, para fazer cálculos matemáticos, é obrigatório converter o valor lido usando `int()` para números inteiros ou `float()` para números com casas decimais.\n\n```python\nnome = input(\"Digite seu nome: \")\nidade = int(input(\"Digite sua idade: \"))\naltura = float(input(\"Digite sua altura em metros: \"))\n\nano_nascimento = 2026 - idade\nprint(f\"Olá, {nome}! Você nasceu por volta de {ano_nascimento} e mede {altura:.2f}m.\")\n```\nNa saída com `print()`, o uso de *f-strings* (colocando um `f` antes das aspas e variáveis entre chaves `{}`) facilita a formatação, e o sufixo `:.2f` permite exibir um número real arredondado com exatamente duas casas decimais."
+    },
+    {
+      "topico": 2,
+      "tipo": "FAQ",
+      "titulo": "Por que a soma de dois números lidos com input() está juntando os dígitos (ex: 2 + 3 dá 23)?",
+      "conteudo": "Isso acontece porque a função `input()` devolve o texto digitado pelo usuário no formato `str` (string), e não como número. Quando você usa o operador `+` entre duas strings em Python, ele realiza uma **concatenação** (junção de textos) em vez de uma soma matemática. Assim, `\"2\" + \"3\"` resulta no texto `\"23\"`.\n\nPara somar os valores numericamente, você precisa converter o retorno do `input()` usando `int()` (se forem inteiros) ou `float()` (se puderem ter casas decimais):\n```python\n# Errado (concatena textos):\na = input(\"Primeiro número: \")  # se digitar 2, 'a' vale \"2\"\nb = input(\"Segundo número: \")   # se digitar 3, 'b' vale \"3\"\nprint(a + b)                    # imprime 23\n\n# Correto (soma números inteiros):\na = int(input(\"Primeiro número: \"))\nb = int(input(\"Segundo número: \"))\nprint(a + b)                    # imprime 5\n```\nSempre que for fazer contas com um dado lido do teclado, envolva o `input()` com `int()` ou `float()`."
+    },
+    {
+      "topico": 2,
+      "tipo": "FAQ",
+      "titulo": "O que significa o erro ValueError: invalid literal for int() with base 10?",
+      "conteudo": "Esse erro ocorre quando o programa tenta converter uma string para inteiro com `int()`, mas o texto fornecido não representa um número inteiro válido. As três causas mais comuns nos exercícios são: o usuário digitou um número com ponto ou vírgula decimal (como `3.5` ou `3,5`), digitou letras por engano, ou apertou Enter sem digitar nada (string vazia `\"\"`).\n\nVeja como o erro aparece e como evitá-lo quando o dado pode ter casas decimais:\n```python\n# Se o usuário digitar 7.5 na linha abaixo, ocorre ValueError:\n# nota = int(input(\"Digite a nota: \"))\n\n# Solução: para notas, pesos, alturas e preços, use sempre float():\nnota = float(input(\"Digite a nota (use ponto, ex: 7.5): \"))\nprint(\"Nota lida:\", nota)\n```\nLembre-se também de usar ponto (`.`) e não vírgula (`,`) ao digitar números decimais no terminal do Python, pois o padrão da linguagem segue a notação inglesa."
+    },
+    {
+      "topico": 3,
+      "tipo": "MATERIAL",
+      "titulo": "Operadores aritméticos e precedência em Python",
+      "conteudo": "Python oferece sete operadores aritméticos principais para realizar cálculos numéricos: adição (`+`), subtração (`-`), multiplicação (`*`), divisão real (`/`), divisão inteira (`//`), resto da divisão ou módulo (`%`) e potenciação (`**`). A ordem em que as operações são avaliadas segue a precedência matemática: primeiro parênteses `()`, depois potenciação `**`, em seguida multiplicação e divisões (`*`, `/`, `//`, `%`) da esquerda para a direita e, por fim, adição e subtração (`+`, `-`).\n\n```python\n# Cuidado com a precedência no cálculo de média:\nn1 = 8.0\nn2 = 6.0\nmedia_errada = n1 + n2 / 2     # calcula 8.0 + (6.0 / 2) = 11.0\nmedia_correta = (n1 + n2) / 2  # calcula (8.0 + 6.0) / 2 = 7.0\n\n# Divisão inteira e resto (úteis para converter segundos/minutos ou testar paridade):\nminutos = 135 // 60            # 2 horas inteiras\nresto_min = 135 % 60           # 15 minutos restantes\nprint(media_correta, minutos, resto_min)\n```\nNa dúvida sobre a ordem de avaliação de uma fórmula, utilize parênteses para deixar sua intenção explícita."
+    },
+    {
+      "topico": 3,
+      "tipo": "MATERIAL",
+      "titulo": "Operadores relacionais e lógicos (booleanos)",
+      "conteudo": "Operadores relacionais comparam dois valores e produzem sempre um resultado booleano (`True` ou `False`). São eles: igual a (`==`), diferente de (`!=`), maior que (`>`), menor que (`<`), maior ou igual (`>=`) e menor ou igual (`<=`). Já os operadores lógicos combinam ou invertem expressões booleanas: `and` (retorna `True` apenas se ambas as condições forem verdadeiras), `or` (retorna `True` se pelo menos uma condição for verdadeira) e `not` (inverte o valor lógico).\n\n```python\nnota = 7.5\nfrequencia = 80\n\n# Para aprovar, precisa de nota >= 6.0 E frequência >= 75:\naprovado = (nota >= 6.0) and (frequencia >= 75)\nprint(\"Aprovado:\", aprovado)  # True\n\n# Teste de intervalo: verificar se x está entre 10 e 20 (inclusive):\nx = 15\ndentro = (x >= 10) and (x <= 20)\nprint(\"Dentro do intervalo:\", dentro)\n```\nAtenção para não confundir `=` (atribuição de valor a uma variável) com `==` (comparação de igualdade entre dois valores)."
+    },
+    {
+      "topico": 3,
+      "tipo": "FAQ",
+      "titulo": "Qual a diferença entre os operadores /, // e % na divisão?",
+      "conteudo": "Cada um desses três operadores responde a uma pergunta diferente sobre a divisão entre dois números:\n- `/` (**divisão real**): realiza a divisão completa com casas decimais e retorna sempre um `float`, mesmo quando a divisão é exata (ex: `10 / 2` resulta em `5.0`).\n- `//` (**divisão inteira**): retorna apenas o quociente inteiro da divisão, descartando a parte fracionária (ex: `17 // 5` resulta em `3`).\n- `%` (**módulo ou resto**): retorna o que sobra da divisão inteira (ex: `17 % 5` resulta em `2`, pois `3 * 5 = 15` e sobram `2`).\n\n```python\ndividendo = 17\ndivisor = 5\nprint(\"Divisão real (/):\", dividendo / divisor)     # 3.4\nprint(\"Quociente inteiro (//):\", dividendo // divisor) # 3\nprint(\"Resto da divisão (%):\", dividendo % divisor)    # 2\n\n# Uso clássico do %: saber se um número é par (resto por 2 igual a zero)\nnumero = 14\neh_par = (numero % 2 == 0)  # True\n```\nOs operadores `//` e `%` também são muito usados juntos para separar dígitos de um número ou converter unidades de tempo."
+    },
+    {
+      "topico": 3,
+      "tipo": "FAQ",
+      "titulo": "Por que a condição if x == 1 or 2 sempre dá verdadeira no meu código?",
+      "conteudo": "Em português dizemos 'se x for igual a 1 ou 2', mas em Python o operador `or` separa duas condições completas e independentes. Quando você escreve `x == 1 or 2`, o Python interpreta isso como `(x == 1) or (2)`. Como em Python qualquer número diferente de zero é avaliado como verdadeiro (`True`) em um contexto lógico, a segunda parte (`2`) é sempre verdadeira, fazendo a expressão inteira resultar em `True` para qualquer valor de `x`.\n\nVeja a forma errada e as duas formas corretas de escrever essa comparação:\n```python\nx = 5\n\n# Errado: sempre entra no if, mesmo com x = 5!\nif x == 1 or 2:\n    print(\"Entrou por engano\")\n\n# Correto (repetindo a variável na comparação):\nif x == 1 or x == 2:\n    print(\"x é 1 ou 2\")\n\n# Correto alternativo (usando o operador in com uma tupla ou lista):\nif x in (1, 2):\n    print(\"x é 1 ou 2\")\n```\nSempre verifique se ambos os lados do `and` e do `or` possuem uma comparação completa."
+    },
+    {
+      "topico": 4,
+      "tipo": "MATERIAL",
+      "titulo": "Estruturas condicionais if, elif e else em Python",
+      "conteudo": "As estruturas condicionais permitem que o programa tome decisões e execute blocos de código diferentes dependendo do resultado de um teste lógico. Em Python, usamos `if` (se) para testar a primeira condição, `elif` (senão se) para testar condições intermediárias mutuamente exclusivas e `else` (senão) como caminho padrão caso nenhuma das condições anteriores seja verdadeira. Os blocos de código dentro de cada ramo são delimitados pela **indentação** (recuo de 4 espaços à esquerda) após os dois-pontos `:`.\n\n```python\nmedia = float(input(\"Digite a média final: \"))\n\nif media >= 6.0:\n    situacao = \"Aprovado\"\nelif media >= 4.0:\n    situacao = \"Em recuperação\"\nelse:\n    situacao = \"Reprovado\"\n\nprint(\"Situação do aluno:\", situacao)\n```\nImportante: em uma cadeia `if / elif / else`, assim que uma condição é verdadeira, seu bloco é executado e todas as demais abaixo dela são ignoradas."
+    },
+    {
+      "topico": 4,
+      "tipo": "MATERIAL",
+      "titulo": "Condicionais aninhadas versus operadores lógicos compostos",
+      "conteudo": "Muitos problemas exigem verificar mais de um critério antes de tomar uma decisão. Isso pode ser feito com **condicionais aninhadas** (um `if` dentro de outro `if`) ou combinando testes com operadores lógicos (`and`, `or`). As condicionais aninhadas são muito úteis quando queremos dar mensagens específicas para cada motivo de falha ou quando a segunda verificação só faz sentido se a primeira passar (por exemplo, testar se o divisor é diferente de zero antes de dividir).\n\n```python\nidade = int(input(\"Idade: \"))\ntem_carteira = input(\"Possui CNH? (s/n): \")\n\n# Com condicional aninhada (permite explicar o motivo exato):\nif idade >= 18:\n    if tem_carteira == \"s\":\n        print(\"Pode dirigir.\")\n    else:\n        print(\"Maior de idade, mas não possui CNH.\")\nelse:\n    print(\"Menor de idade, ainda não pode dirigir.\")\n```\nSe não for necessário distinguir o motivo negativo, uma única linha `if idade >= 18 and tem_carteira == \"s\":` deixa o código mais curto e direto."
+    },
+    {
+      "topico": 4,
+      "tipo": "FAQ",
+      "titulo": "Qual a diferença entre usar vários if seguidos e usar if com elif?",
+      "conteudo": "A diferença está na exclusividade entre os testes. Quando você usa `if` seguido de `elif`, os ramos fazem parte de uma **única estrutura de decisão**: se o primeiro `if` for verdadeiro, o Python nem chega a testar os `elif` seguintes. Já quando você escreve vários `if` independentes um abaixo do outro, **todos os `if` são testados separadamente**, mesmo que o primeiro já tenha dado verdadeiro.\n\nObserve como o comportamento muda na classificação de um número:\n```python\nx = 85\n\n# Com vários if independentes (imprime DUAS mensagens):\nif x >= 80:\n    print(\"Conceito A\")\nif x >= 60:\n    print(\"Conceito B\")  # também executa, pois 85 >= 60!\n\n# Com if/elif (imprime APENAS Conceito A):\nif x >= 80:\n    print(\"Conceito A\")\nelif x >= 60:\n    print(\"Conceito B\")  # ignorado porque o if acima já foi verdadeiro\n```\nUse `elif` sempre que as faixas ou opções forem mutuamente exclusivas (apenas uma resposta deve valer)."
+    },
+    {
+      "topico": 4,
+      "tipo": "FAQ",
+      "titulo": "Por que aparece IndentationError: expected an indented block depois do if?",
+      "conteudo": "Em Python, o recuo (indentação) não é apenas estético: é ele que informa ao interpretador quais linhas pertencem ao bloco do `if`, `elif` ou `else`. O erro `IndentationError` aparece quando você esquece de recuar a linha logo após os dois-pontos `:`, ou quando mistura espaços em branco com a tecla Tab no mesmo arquivo.\n\nVeja como corrigir o alinhamento dos blocos:\n```python\nnumero = int(input(\"Digite um inteiro: \"))\n\n# Errado (gera IndentationError porque o print não está recuado):\n# if numero > 0:\n# print(\"Positivo\")\n\n# Correto (4 espaços de recuo dentro de cada bloco):\nif numero > 0:\n    print(\"O número é positivo.\")\n    print(\"Este print também está dentro do if.\")\nelse:\n    print(\"O número é zero ou negativo.\")\nprint(\"Este print está fora do if/else e executa sempre.\")\n```\nConfigure seu editor para inserir 4 espaços automaticamente ao pressionar a tecla Tab."
+    },
+    {
+      "topico": 5,
+      "tipo": "MATERIAL",
+      "titulo": "Estrutura de repetição while: contadores e acumuladores",
+      "conteudo": "O laço `while` (enquanto) repete um bloco de instruções enquanto uma condição lógica permanecer verdadeira. Para controlar a repetição corretamente, dois padrões de variáveis são fundamentais: o **contador**, que aumenta ou diminui em um valor fixo a cada passo (ex: `cont = cont + 1`), e o **acumulador**, que soma (ou multiplica) valores variáveis lidos ou calculados ao longo do laço (ex: `soma = soma + valor`). Ambos precisam ser inicializados antes do `while` começar.\n\n```python\n# Ler 4 notas e calcular a média usando while:\ncont = 0\nsoma = 0.0\n\nwhile cont < 4:\n    nota = float(input(\"Digite uma nota: \"))\n    soma = soma + nota   # acumulador guarda o total das notas\n    cont = cont + 1      # contador avança 1 repetição\n\nmedia = soma / 4\nprint(\"Média das 4 notas:\", media)\n```\nSe o contador não for atualizado dentro do bloco indentado do `while`, a condição nunca mudará para `False` e o programa ficará preso."
+    },
+    {
+      "topico": 5,
+      "tipo": "MATERIAL",
+      "titulo": "Repetição controlada por sentinela e validação de entrada com while",
+      "conteudo": "O laço `while` é a escolha ideal quando **não sabemos de antemão quantas vezes** a repetição vai acontecer. Dois casos clássicos são a leitura com valor **sentinela** (um valor especial, como `0` ou `-1`, que avisa que o usuário quer encerrar a digitação) e a **validação de dados** (pedir novamente o dado enquanto o usuário digitar um valor inválido).\n\n```python\n# Exemplo 1: Validação de nota entre 0 e 10\nnota = float(input(\"Digite uma nota (0 a 10): \"))\nwhile nota < 0 or nota > 10:\n    print(\"Valor inválido!\")\n    nota = float(input(\"Digite novamente (0 a 10): \"))\n\n# Exemplo 2: Soma de números até digitar 0 (sentinela)\nsoma = 0\nnum = int(input(\"Digite um número (0 para parar): \"))\nwhile num != 0:\n    soma = soma + num\n    num = int(input(\"Digite um número (0 para parar): \"))\nprint(\"Soma total:\", soma)\n```\nNote que, no padrão com sentinela, lemos o primeiro valor antes do `while` e lemos o próximo valor no final do bloco para evitar somar o próprio sentinela."
+    },
+    {
+      "topico": 5,
+      "tipo": "FAQ",
+      "titulo": "Meu programa travou e não para de rodar no while (loop infinito). O que eu fiz de errado?",
+      "conteudo": "Um *loop infinito* acontece quando a condição do `while` nunca se torna `False`. Se o seu terminal travar imprimindo sem parar, pressione **Ctrl + C** para interromper a execução. Em seguida, verifique os três erros mais frequentes:\n1. Você esqueceu de incrementar a variável de controle (ex: `i = i + 1`) ou de ler o próximo dado dentro do `while`.\n2. A linha `i = i + 1` ficou **fora da indentação** do `while`, então ela só executaria depois que o laço acabasse.\n3. A condição foi escrita invertida ou as variáveis são reinicializadas dentro do próprio laço.\n\n```python\n# Errado: 'soma = 0' e 'i = 1' estão dentro ou 'i += 1' está fora:\ni = 1\nwhile i <= 5:\n    print(i)\n    i = i + 1  # DEVE estar indentado dentro do while!\n```\nSempre confira qual variável aparece na condição do `while` e garanta que ela seja modificada dentro do bloco em direção à condição de parada."
+    },
+    {
+      "topico": 5,
+      "tipo": "FAQ",
+      "titulo": "Quando devo usar while e quando devo usar for?",
+      "conteudo": "Embora qualquer problema de repetição possa ser resolvido com `while`, a regra prática para escolher a estrutura mais clara é:\n- Use **`for`** quando a quantidade de repetições já é conhecida antes do laço começar (por exemplo, ler exatamente `N` números, mostrar a tabuada de 1 a 10, ou percorrer todos os elementos de uma lista ou string).\n- Use **`while`** quando a repetição depende de um evento ou condição cujo número de passos é imprevisível (por exemplo, ler valores até que o usuário digite `-1`, validar uma senha até acertar, ou dividir um número sucessivamente até chegar a zero).\n\n```python\n# Quantidade conhecida (1 a 5) -> prefira for:\nfor i in range(1, 6):\n    print(i)\n\n# Quantidade desconhecida (até digitar 'sair') -> use while:\ncomando = input(\"Comando: \")\nwhile comando != \"sair\":\n    comando = input(\"Comando: \")\n```\nEscolher o `for` para repetições contadas evita esquecer de incrementar o contador manualmente."
+    },
+    {
+      "topico": 6,
+      "tipo": "MATERIAL",
+      "titulo": "Laço for e a função range() em Python",
+      "conteudo": "Em Python, o laço `for` percorre os itens de uma sequência um por um. Para repetir um bloco um número determinado de vezes ou gerar sequências numéricas, usamos a função `range()`, que aceita três formas de chamada:\n- `range(fim)`: gera inteiros de `0` até `fim - 1`.\n- `range(inicio, fim)`: gera inteiros de `inicio` até `fim - 1`.\n- `range(inicio, fim, passo)`: gera inteiros de `inicio` até antes de `fim`, somando `passo` a cada avanço (o passo pode ser negativo para contagens regressivas).\n\n```python\n# 0, 1, 2, 3, 4 (5 repetições):\nfor i in range(5):\n    print(i)\n\n# Pares de 2 até 10 (inclusive):\nfor par in range(2, 11, 2):\n    print(par)\n\n# Contagem regressiva de 5 até 1:\nfor cont in range(5, 0, -1):\n    print(cont)\n```\nLembre-se sempre de que o limite superior (`fim`) do `range` é **exclusivo**, ou seja, nunca entra na sequência gerada."
+    },
+    {
+      "topico": 6,
+      "tipo": "MATERIAL",
+      "titulo": "Somas, produtórios e busca de maior/menor valor com laço for",
+      "conteudo": "Muitos problemas clássicos com `for` envolvem percorrer `N` valores para calcular uma soma, um fatorial (produtório) ou descobrir qual foi o maior e o menor valor informado. Para somar, inicializamos o acumulador com `0` (elemento neutro da adição); para multiplicar (como no fatorial), inicializamos com `1` (elemento neutro da multiplicação).\n\n```python\n# Exemplo 1: Fatorial de N (1 * 2 * ... * N)\nn = int(input(\"Digite N: \"))\nfatorial = 1\nfor i in range(1, n + 1):\n    fatorial = fatorial * i\nprint(\"Fatorial:\", fatorial)\n\n# Exemplo 2: Descobrir o maior entre N números lidos\nmaior = None\nfor i in range(5):\n    valor = int(input(\"Digite um valor: \"))\n    if maior is None or valor > maior:\n        maior = valor\nprint(\"Maior valor digitado:\", maior)\n```\nAo buscar o maior ou menor valor, inicializar com o primeiro elemento lido (ou com `None`) é mais seguro do que chutar `0`, pois todos os números digitados podem ser negativos."
+    },
+    {
+      "topico": 6,
+      "tipo": "FAQ",
+      "titulo": "Por que range(1, 10) só vai até o 9 e não inclui o 10?",
+      "conteudo": "Em Python, o segundo parâmetro de `range(inicio, fim)` define o **limite de parada exclusivo**: a sequência para imediatamente antes de atingir esse número. Essa convenção existe porque, quando começamos do zero — como em `range(10)` ou nos índices de uma lista —, os 10 elementos gerados são `0, 1, 2, 3, 4, 5, 6, 7, 8, 9`, totalizando exatamente 10 repetições.\n\nSe você quer que a contagem comece em `1` e inclua o número `10` (ou um número `n` lido do usuário), basta somar `1` ao limite final:\n```python\n# Vai de 1 até 9:\nfor i in range(1, 10):\n    print(i, end=\" \")\nprint()\n\n# Vai de 1 até 10 (incluindo o 10):\nfor i in range(1, 10 + 1):\n    print(i, end=\" \")\nprint()\n\n# Com variável n lida do usuário (de 1 até n):\nn = int(input(\"Até qual número contar? \"))\nfor i in range(1, n + 1):\n    print(i)\n```\nGrave a regra: para ir de `1` até `n` inclusive, escreva sempre `range(1, n + 1)`."
+    },
+    {
+      "topico": 6,
+      "tipo": "FAQ",
+      "titulo": "Como faço uma contagem regressiva com for usando range()?",
+      "conteudo": "Para contar de trás para frente com `range()`, você precisa informar obrigatoriamente os três argumentos: `range(inicio, fim, passo)`, usando um **passo negativo** (como `-1`). Se você escrever apenas `range(10, 1)` sem o terceiro argumento, o Python tentará somar `+1` a partir de `10` para chegar em `1`, verá que já passou do limite e o laço não executará nenhuma vez.\n\nAlém disso, como o `fim` é exclusivo, para parar no `1` você deve colocar `0` como limite final, e para parar no `0` deve colocar `-1`:\n```python\n# Contagem regressiva de 10 até 1:\nfor i in range(10, 0, -1):\n    print(i, end=\" \")\nprint()\n\n# Contagem regressiva de 5 até 0 (incluindo o zero):\nfor i in range(5, -1, -1):\n    print(i, end=\" \")\n```\nSe o seu `for` regressivo não estiver imprimindo nada, quase sempre faltou o `-1` no terceiro parâmetro do `range`."
+    },
+    {
+      "topico": 7,
+      "tipo": "MATERIAL",
+      "titulo": "Criação de listas, indexação, tamanho com len() e adição com append()",
+      "conteudo": "Uma lista em Python é uma estrutura que armazena vários valores em sequência dentro de uma única variável, delimitados por colchetes `[]` e separados por vírgulas. Cada elemento possui uma posição chamada **índice**, que começa sempre em `0` no primeiro item e vai até `len(lista) - 1` no último item (índices negativos como `-1` acessam a partir do final). Como as listas são mutáveis, podemos alterar elementos por índice ou acrescentar novos ao final usando o método `.append()`.\n\n```python\nnotas = [7.5, 8.0, 6.5]\nprint(\"Primeira nota:\", notas[0])      # 7.5\nprint(\"Última nota:\", notas[-1])       # 6.5\nprint(\"Quantidade:\", len(notas))       # 3\n\n# Lendo mais uma nota e adicionando ao final da lista:\nnova = float(input(\"Digite a 4ª nota: \"))\nnotas.append(nova)\nprint(\"Lista atualizada:\", notas)\n```\nPara criar uma lista a partir de valores digitados pelo usuário, o padrão mais comum é iniciar com `dados = []` e usar `.append()` dentro de um laço."
+    },
+    {
+      "topico": 7,
+      "tipo": "MATERIAL",
+      "titulo": "Percorrimento de listas com for (por elemento e por índice) e fatiamento",
+      "conteudo": "Existem duas maneiras principais de percorrer uma lista com `for`:\n1. **Diretamente pelos elementos** (`for item in lista:`): mais simples e legível quando só precisamos consultar os valores.\n2. **Pelos índices** (`for i in range(len(lista)):`): necessário quando precisamos saber a posição `i`, modificar elementos na própria lista (`lista[i] = ...`) ou comparar vizinhos (`lista[i]` com `lista[i + 1]`).\n\n```python\nvalores = [10, 25, 30, 45, 50]\n\n# Percorrendo por elemento (ex: somar pares):\nsoma = 0\nfor v in valores:\n    if v % 2 == 0:\n        soma += v\n\n# Percorrendo por índice (ex: dobrar cada elemento na própria lista):\nfor i in range(len(valores)):\n    valores[i] = valores[i] * 2\n\n# Fatiamento (slicing) lista[inicio:fim]:\nprimeiros_tres = valores[0:3]\nprint(soma, valores, primeiros_tres)\n```\nO fatiamento `lista[a:b]` cria uma nova sublista do índice `a` até `b - 1`, seguindo a mesma regra do `range`."
+    },
+    {
+      "topico": 7,
+      "tipo": "FAQ",
+      "titulo": "Por que dá o erro IndexError: list index out of range quando percorro uma lista?",
+      "conteudo": "O erro `IndexError: list index out of range` significa que seu código tentou acessar uma posição da lista que não existe. Se uma lista tem 5 elementos (`len(lista) == 5`), os índices válidos são apenas `0, 1, 2, 3` e `4`. Tentar acessar `lista[5]` causa esse erro.\n\nAs duas situações em que isso mais ocorre nos exercícios são:\n1. Usar `range(len(lista) + 1)` em vez de `range(len(lista))`.\n2. Acessar `lista[i + 1]` dentro de um laço que vai até o último índice.\n\n```python\nnumeros = [10, 20, 30, 40]\n\n# Errado ao comparar vizinhos (quando i=3, i+1 é 4, que não existe!):\n# for i in range(len(numeros)):\n#     if numeros[i] < numeros[i + 1]: ...\n\n# Correto ao acessar i + 1 (parar uma posição antes do fim):\nfor i in range(len(numeros) - 1):\n    print(\"Par de vizinhos:\", numeros[i], numeros[i + 1])\n```\nDica: também ocorre `IndexError` se você tentar atribuir `lista[0] = valor` em uma lista vazia `lista = []`; nesse caso, use `lista.append(valor)`."
+    },
+    {
+      "topico": 7,
+      "tipo": "FAQ",
+      "titulo": "Por que fazer copia = lista e mudar copia[0] também altera a lista original?",
+      "conteudo": "Em Python, variáveis que guardam listas armazenam uma **referência** para o objeto na memória. Quando você faz `copia = lista`, não está criando uma segunda lista independente, mas sim um segundo nome apontando para a **mesma lista**. Por isso, qualquer alteração feita em `copia[0]` ou `copia.append(...)` aparece também em `lista`.\n\nPara criar uma cópia real e independente dos elementos, use o método `.copy()` ou o fatiamento completo `[:]`:\n```python\noriginal = [1, 2, 3]\n\n# Errado (ambas apontam para a mesma lista):\nafeta_original = original\nafeta_original[0] = 99\nprint(original)  # [99, 2, 3] -> alterou a original!\n\n# Correto (cria uma nova lista independente):\noriginal = [1, 2, 3]\ncopia_real = original.copy()   # ou original[:]\ncopia_real[0] = 99\nprint(original)                # [1, 2, 3] -> original intacta\nprint(copia_real)              # [99, 2, 3]\n```\nLembre-se disso principalmente quando precisar ordenar ou modificar uma lista sem perder a ordem original dos dados lidos."
+    },
+    {
+      "topico": 8,
+      "tipo": "MATERIAL",
+      "titulo": "Strings em Python: indexação, fatiamento, percorrimento e imutabilidade",
+      "conteudo": "Strings (`str`) são sequências de caracteres usadas para representar textos. Assim como as listas, strings possuem tamanho obtido por `len(texto)`, suportam acesso por índice (`texto[0]`), fatiamento (`texto[inicio:fim:passo]`) e podem ser percorridas caractere por caractere com um laço `for`. A grande diferença em relação às listas é que **strings são imutáveis**: depois de criada, não é possível alterar um caractere diretamente por índice (`texto[0] = 'A'` gera `TypeError`).\n\n```python\npalavra = \"algoritmo\"\nprint(\"Primeira letra:\", palavra[0])    # 'a'\nprint(\"Tamanho:\", len(palavra))         # 9\nprint(\"Invertida:\", palavra[::-1])      # 'omtirogla'\n\n# Contando quantas vogais existem na palavra:\nvogais = 0\nfor letra in palavra.lower():\n    if letra in \"aeiou\":\n        vogais += 1\nprint(\"Total de vogais:\", vogais)\n```\nO fatiamento com passo `-1` (`texto[::-1]`) gera uma nova string com os caracteres em ordem inversa, recurso muito útil para verificar palíndromos."
+    },
+    {
+      "topico": 8,
+      "tipo": "MATERIAL",
+      "titulo": "Métodos úteis de strings: lower, upper, strip, split, join e replace",
+      "conteudo": "Como strings são imutáveis, seus métodos nunca alteram a variável original: eles **retornam uma nova string** com o resultado da transformação. Os métodos mais importantes na disciplina são:\n- `.lower()` e `.upper()`: convertem todas as letras para minúsculas ou maiúsculas.\n- `.strip()`: remove espaços em branco extras no início e no fim.\n- `.replace(antigo, novo)`: substitui trechos de texto.\n- `.split()`: divide uma frase em uma **lista de palavras** (usando espaços ou um separador informado).\n- `separador.join(lista)`: junta uma lista de strings em um único texto.\n\n```python\nfrase = \"  Estudar Python é muito bom  \"\nlimpa = frase.strip().lower()\npalavras = limpa.split()           # ['estudar', 'python', 'é', 'muito', 'bom']\nprint(\"Nº de palavras:\", len(palavras))\n\ncom_hifen = \"-\".join(palavras)     # 'estudar-python-é-muito-bom'\nprint(com_hifen)\n```\nPara guardar a alteração, atribua o retorno de volta à variável: `frase = frase.lower()`."
+    },
+    {
+      "topico": 8,
+      "tipo": "FAQ",
+      "titulo": "Por que texto.upper() ou texto.replace() não muda o valor da minha variável?",
+      "conteudo": "Porque strings em Python são **imutáveis**. Quando você chama `texto.upper()`, `texto.lower()` ou `texto.replace(\"a\", \"b\")`, o Python cria e devolve uma **nova string** modificada, mantendo a string original intacta. Se você apenas chamar o método solto na linha sem guardar o resultado em uma variável, a nova string criada é descartada imediatamente.\n\nVeja a diferença na prática:\n```python\nnome = \"maria silva\"\n\n# Errado (o retorno de .upper() não foi salvo em lugar nenhum):\nnome.upper()\nprint(nome)  # continua imprimindo 'maria silva' em minúsculas!\n\n# Correto (atribuindo o retorno de volta para a variável):\nnome = nome.upper()\nprint(nome)  # agora imprime 'MARIA SILVA'\n\n# Mesmo princípio com replace:\ncpf = \"123.456.789-00\"\ncpf = cpf.replace(\".\", \"\").replace(\"-\", \"\")\nprint(cpf)   # '12345678900'\n```\nDiferente do `lista.append()`, que altera a lista no próprio lugar, métodos de string sempre exigem atribuição (`s = s.metodo()`)."
+    },
+    {
+      "topico": 8,
+      "tipo": "FAQ",
+      "titulo": "Como separar vários números digitados na mesma linha em Python?",
+      "conteudo": "Em muitos exercícios ou juízes online, a entrada fornece vários números na mesma linha separados por espaço (por exemplo, `10 20 30`). Se você usar apenas `int(input())`, ocorrerá um `ValueError`, pois `\"10 20 30\"` contém espaços. A solução é dividir a string com `.split()` (que gera uma lista de textos `[\"10\", \"20\", \"30\"]`) e depois converter cada pedaço para `int` ou `float`.\n\nVeja duas formas simples de fazer isso:\n```python\nlinha = input(\"Digite números na mesma linha: \")  # ex: 10 20 30\npartes = linha.split()                            # ['10', '20', '30']\n\n# Forma 1: usando um laço for tradicional\nnumeros = []\nfor p in partes:\n    numeros.append(int(p))\nprint(\"Lista de inteiros:\", numeros)\n\n# Forma 2: quando são exatamente 2 ou 3 valores fixos\na, b = input(\"Digite dois inteiros: \").split()\na = int(a)\nb = int(b)\nprint(\"Soma:\", a + b)\n```\nO `.split()` sem argumentos trata automaticamente qualquer quantidade de espaços entre os números."
+    },
+    {
+      "topico": 9,
+      "tipo": "MATERIAL",
+      "titulo": "Definição de funções com def, parâmetros e comando return",
+      "conteudo": "Funções são blocos de código nomeados que realizam uma tarefa específica e podem ser chamados várias vezes ao longo do programa, evitando repetição de código e facilitando a manutenção. Em Python, definimos uma função com a palavra-chave `def`, seguida do nome da função, da lista de **parâmetros** entre parênteses e de dois-pontos `:`. Para devolver o resultado calculado para quem chamou a função, utilizamos o comando `return`.\n\n```python\ndef calcular_imc(peso, altura):\n    imc = peso / (altura ** 2)\n    return imc\n\n# Chamando a função no programa principal:\np = float(input(\"Peso (kg): \"))\na = float(input(\"Altura (m): \"))\nresultado = calcular_imc(p, a)\nprint(f\"Seu IMC é {resultado:.2f}\")\n```\nAtenção: quando o Python executa a linha do `return`, a função é encerrada imediatamente e o valor indicado é entregue ao ponto de chamada."
+    },
+    {
+      "topico": 9,
+      "tipo": "MATERIAL",
+      "titulo": "Escopo local de variáveis e composição de funções",
+      "conteudo": "Variáveis criadas dentro de uma função (incluindo seus parâmetros) possuem **escopo local**: elas existem apenas enquanto aquela função está executando e não podem ser acessadas diretamente fora dela. Isso é uma vantagem importante, pois impede que uma função bagunce por acidente as variáveis de outra parte do programa. Além disso, uma função pode chamar outra função já definida para dividir problemas maiores em partes menores.\n\n```python\ndef eh_par(n):\n    return n % 2 == 0\n\ndef somar_pares(lista):\n    total = 0  # 'total' é uma variável local desta função\n    for num in lista:\n        if eh_par(num):\n            total += num\n    return total\n\nvalores = [3, 4, 7, 10, 12]\nprint(\"Soma dos pares:\", somar_pares(valores))  # 26\n```\nBoa prática: passe todos os dados de que a função precisa como parâmetros e devolva a resposta pelo `return`, em vez de depender de variáveis globais."
+    },
+    {
+      "topico": 9,
+      "tipo": "FAQ",
+      "titulo": "Qual a diferença entre usar print() e usar return dentro de uma função?",
+      "conteudo": "Essa é uma das dúvidas mais importantes sobre funções! O `print()` apenas **mostra um texto na tela** para o humano ler, mas não devolve nenhum valor utilizável para o restante do programa (uma função sem `return` devolve `None` por padrão). Já o `return` **entrega o valor calculado** de volta para quem chamou a função, permitindo guardar esse resultado em uma variável ou usá-lo dentro de outra conta.\n\nVeja o que acontece quando confundimos os dois:\n```python\ndef dobro_com_print(x):\n    print(x * 2)      # mostra na tela, mas retorna None\n\ndef dobro_com_return(x):\n    return x * 2      # devolve o número calculado\n\n# Se tentarmos somar 10 ao resultado:\n# r1 = dobro_com_print(5) + 10  -> ERRO TypeError: NoneType + int!\n\nr2 = dobro_com_return(5) + 10   # funciona! r2 recebe 10 + 10 = 20\nprint(\"Resultado final:\", r2)\n```\nEm exercícios que pedem 'escreva uma função que retorne...', use sempre `return` dentro da função e deixe o `print()` para o programa principal."
+    },
+    {
+      "topico": 9,
+      "tipo": "FAQ",
+      "titulo": "Por que minha função para na primeira volta do for quando coloco return dentro do laço?",
+      "conteudo": "Porque o comando `return` **encerra a execução da função imediatamente** no instante em que é atingido. Se você colocar tanto o `return True` quanto o `return False` dentro do `if/else` que fica dentro do `for`, a função vai testar apenas o primeiro elemento da lista (`indice 0`) e já vai sair na primeira iteração, sem nunca olhar o restante dos elementos.\n\nVeja esse erro clássico ao procurar um número ou verificar se todos são positivos:\n```python\n# Errado (olha apenas o primeiro elemento e já sai da função!):\ndef contem_negativo_errado(lista):\n    for n in lista:\n        if n < 0:\n            return True\n        else:\n            return False  # ERRO: sai na 1ª volta se o 1º número for >= 0!\n\n# Correto (só retorna False DEPOIS que o for terminou de olhar tudo):\ndef contem_negativo(lista):\n    for n in lista:\n        if n < 0:\n            return True   # achou um negativo, já pode encerrar\n    return False          # fora do for: testou todos e nenhum era negativo\n```\nRegra de ouro: a resposta que depende de ter verificado **todos** os elementos deve ficar alinhada fora do `for`."
+    },
+    {
+      "topico": 10,
+      "tipo": "MATERIAL",
+      "titulo": "Representação e criação de matrizes como listas de listas",
+      "conteudo": "Em Python puro, representamos uma matriz bidimensional (com linhas e colunas) como uma **lista de listas**, na qual cada lista interna corresponde a uma linha da matriz. Para acessar um elemento específico, usamos dois pares de colchetes: `matriz[linha][coluna]`, sempre começando do índice `0` tanto para as linhas quanto para as colunas.\n\n```python\n# Matriz 2x3 (2 linhas e 3 colunas) já preenchida:\nm = [\n    [10, 20, 30],\n    [40, 50, 60]\n]\nprint(\"Elemento da linha 0, coluna 2:\", m[0][2])  # 30\nprint(\"Quantidade de linhas:\", len(m))            # 2\nprint(\"Quantidade de colunas:\", len(m[0]))        # 3\n\n# Lendo uma matriz L x C do teclado:\nlinhas = 2\ncolunas = 3\nmatriz = []\nfor i in range(linhas):\n    linha = []\n    for j in range(colunas):\n        valor = int(input(f\"Digite m[{i}][{j}]: \"))\n        linha.append(valor)\n    matriz.append(linha)\n```\nConstruir uma lista `linha = []` dentro do `for` externo e adicioná-la com `matriz.append(linha)` ao final das colunas é o jeito mais claro de montar matrizes."
+    },
+    {
+      "topico": 10,
+      "tipo": "MATERIAL",
+      "titulo": "Percorrimento de matrizes com laços aninhados e diagonais",
+      "conteudo": "Para percorrer todos os elementos de uma matriz, utilizamos dois laços `for` aninhados: o laço externo varia o índice da linha `i` e o laço interno varia o índice da coluna `j`. Em matrizes quadradas (mesmo número `N` de linhas e colunas), duas regiões aparecem com frequência nos exercícios:\n- **Diagonal principal**: posições onde o índice da linha é igual ao da coluna (`i == j`).\n- **Diagonal secundária**: posições onde `i + j == N - 1`.\n\n```python\nmatriz = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]\nn = len(matriz)\nsoma_total = 0\nsoma_diag_principal = 0\n\nfor i in range(n):\n    for j in range(n):\n        soma_total += matriz[i][j]\n        if i == j:\n            soma_diag_principal += matriz[i][j]\n\nprint(\"Soma total:\", soma_total)                     # 45\nprint(\"Soma da diagonal principal:\", soma_diag_principal) # 1 + 5 + 9 = 15\n```\nNote que a diagonal principal de uma matriz quadrada `N x N` também pode ser percorrida com um único laço `for i in range(n):` acessando `matriz[i][i]`."
+    },
+    {
+      "topico": 10,
+      "tipo": "FAQ",
+      "titulo": "Por que criar uma matriz com [[0] * C] * L faz uma alteração mudar todas as linhas juntas?",
+      "conteudo": "Quando você multiplica uma lista de listas usando `[[0] * colunas] * linhas`, o Python não cria `linhas` listas independentes na memória: ele cria **uma única lista de zeros** e repete a referência para essa mesma lista em todas as linhas. Como resultado, ao atribuir `matriz[0][1] = 5`, a posição `1` de **todas as linhas** passa a valer `5` ao mesmo tempo.\n\nVeja a diferença entre o jeito que duplica referências e a forma correta de inicializar uma matriz com zeros:\n```python\n# Errado (todas as linhas apontam para a mesma lista interna!):\nm_errada = [[0] * 3] * 2\nm_errada[0][1] = 9\nprint(m_errada)  # [[0, 9, 0], [0, 9, 0]] -> alterou as duas linhas!\n\n# Correto (cria uma nova lista para cada linha usando um laço for):\nm_correta = []\nfor i in range(2):\n    m_correta.append([0] * 3)\n\nm_correta[0][1] = 9\nprint(m_correta) # [[0, 9, 0], [0, 0, 0]] -> alterou só a linha 0\n```\nMultiplicar `[0] * colunas` para uma única linha é seguro porque inteiros são imutáveis, mas para repetir as linhas sempre use um `for`."
+    },
+    {
+      "topico": 10,
+      "tipo": "FAQ",
+      "titulo": "Como somar separadamente cada linha ou cada coluna de uma matriz?",
+      "conteudo": "Para somar cada **linha** separadamente, o acumulador `soma_linha = 0` deve ser zerado dentro do `for` externo (antes de começar o `for` das colunas daquela linha). Já para somar cada **coluna**, você inverte a ordem dos laços: o `for` externo percorre as colunas `j` e o `for` interno percorre as linhas `i`, mantendo `j` fixo enquanto `i` varia.\n\n```python\nm = [\n    [1, 2, 3],\n    [4, 5, 6]\n]\nlinhas = len(m)\ncolunas = len(m[0])\n\n# Soma de cada linha:\nfor i in range(linhas):\n    soma_linha = 0\n    for j in range(colunas):\n        soma_linha += m[i][j]\n    print(f\"Soma da linha {i}: {soma_linha}\")\n\n# Soma de cada coluna:\nfor j in range(colunas):\n    soma_coluna = 0\n    for i in range(linhas):\n        soma_coluna += m[i][j]\n    print(f\"Soma da coluna {j}: {soma_coluna}\")\n```\nRepare que o acesso ao elemento continua sendo `m[i][j]` (`linha` primeiro, `coluna` depois) nos dois casos; só muda qual índice varia no laço externo."
+    },
+    {
+      "topico": 9,
+      "tipo": "FAQ",
+      "titulo": "Como uso uma biblioteca (módulo) em Python, como math ou random?",
+      "conteudo": "Uma biblioteca, ou módulo, é um arquivo com funções prontas que você pode reaproveitar. Para usá-la, importe no início do programa com import.\n\n```python\nimport math\nprint(math.sqrt(16))   # 4.0\n\nfrom random import randint\nprint(randint(1, 6))   # sorteia de 1 a 6\n```\n\nCom `import math` você chama as funções com o prefixo (`math.sqrt`). Com `from random import randint` você importa só aquela função e a chama direto. Na disciplina usamos apenas módulos que já vêm com o Python, como math e random. Bibliotecas externas, como pandas ou numpy, precisam ser instaladas e ficam para disciplinas posteriores."
+    }
+  ],
+  "listas": [
+    {
+      "titulo": "Lista 1 - Prática",
+      "avaliativa": false,
+      "exercicios": [
+        {
+          "topico": 2,
+          "enunciado": "Escreva um programa em Python que leia a largura e o comprimento de um terreno retangular (números reais) e exiba a área e o perímetro do terreno.",
+          "resposta_esperada": "largura = float(input())\ncomprimento = float(input())\narea = largura * comprimento\nperimetro = 2 * (largura + comprimento)\nprint(area)\nprint(perimetro)",
+          "passos": "1. Ler a largura e o comprimento convertendo o retorno de input() com float().\n2. Calcular a área multiplicando largura por comprimento.\n3. Calcular o perímetro somando largura e comprimento e multiplicando o resultado por 2 (usando parênteses).\n4. Exibir a área e o perímetro com print().",
+          "dicas": [
+            "Identifique primeiro quais são as duas entradas do problema e lembre-se de converter o texto lido para número real.",
+            "A área de um retângulo é o produto dos lados, e o perímetro é a soma dos quatro lados.",
+            "Cuidado com a precedência ao calcular o perímetro: coloque a soma `(largura + comprimento)` entre parênteses antes de multiplicar por 2."
+          ]
+        },
+        {
+          "topico": 4,
+          "enunciado": "Faça um programa que leia um número inteiro representando um ano e informe se ele é 'Bissexto' ou 'Nao bissexto'. Um ano é bissexto se for divisível por 400, ou se for divisível por 4 mas não por 100.",
+          "resposta_esperada": "ano = int(input())\nif (ano % 400 == 0) or (ano % 4 == 0 and ano % 100 != 0):\n    print('Bissexto')\nelse:\n    print('Nao bissexto')",
+          "passos": "1. Ler o ano como número inteiro usando int(input()).\n2. Verificar a divisibilidade usando o operador de resto (%): um número X é divisível por Y quando X % Y == 0.\n3. Montar a condição lógica combinando as regras com 'or' e 'and'.\n4. Exibir 'Bissexto' no ramo if e 'Nao bissexto' no ramo else.",
+          "dicas": [
+            "Para testar se um número é divisível por outro em Python, verifique se o resto da divisão inteira entre eles é igual a zero.",
+            "Use o operador `%` para testar as três divisões mencionadas no enunciado: por 400, por 4 e por 100.",
+            "Combine as duas possibilidades com `or`: `(ano % 400 == 0)` ou `(ano % 4 == 0 and ano % 100 != 0)`."
+          ]
+        },
+        {
+          "topico": 5,
+          "enunciado": "Escreva um programa que leia números inteiros positivos até que o usuário digite 0 (zero). Ao final, exiba quantos números positivos foram digitados e a soma deles (sem contar o zero).",
+          "resposta_esperada": "qtd = 0\nsoma = 0\nn = int(input())\nwhile n != 0:\n    if n > 0:\n        qtd += 1\n        soma += n\n    n = int(input())\nprint(qtd, soma)",
+          "passos": "1. Inicializar as variáveis contadora (qtd = 0) e acumuladora (soma = 0).\n2. Ler o primeiro número inteiro antes do laço.\n3. Enquanto o número for diferente de 0, somar seu valor e incrementar o contador, e ler o próximo número no final do bloco while.\n4. Após o término do while, exibir a quantidade e a soma.",
+          "dicas": [
+            "Como não sabemos quantos números serão digitados antes do zero, utilize um laço `while` controlado por sentinela.",
+            "Crie duas variáveis antes do laço: uma começando em 0 para contar a quantidade e outra começando em 0 para acumular a soma.",
+            "Leia o primeiro número antes do `while n != 0:` e leia o próximo número na última linha dentro do `while` para não somar o 0."
+          ]
+        },
+        {
+          "topico": 6,
+          "enunciado": "Leia um número inteiro positivo N e calcule a soma de todos os números ímpares de 1 até N (inclusive, caso N seja ímpar).",
+          "resposta_esperada": "n = int(input())\nsoma = 0\nfor i in range(1, n + 1, 2):\n    soma += i\nprint(soma)",
+          "passos": "1. Ler o inteiro N.\n2. Inicializar uma variável acumuladora soma = 0.\n3. Percorrer os inteiros de 1 até N usando for e range(1, n + 1).\n4. Somar apenas os valores ímpares (usando passo 2 no range ou testando i % 2 != 0) e imprimir o total ao final.",
+          "dicas": [
+            "Como você conhece o início (1) e o fim (N) do intervalo, um laço `for` com `range()` é a estrutura ideal.",
+            "Lembre-se de que o limite final do `range` é exclusivo: para incluir `N` no teste, use `n + 1` como segundo argumento.",
+            "Você pode testar se cada número do laço é ímpar com `i % 2 != 0` ou avançar de 2 em 2 a partir do 1 no próprio `range`."
+          ]
+        },
+        {
+          "topico": 7,
+          "enunciado": "Leia 5 números reais, armazene-os em uma lista e, em seguida, exiba a média da turma e quantos valores ficaram estritamente acima dessa média.",
+          "resposta_esperada": "valores = []\nfor _ in range(5):\n    valores.append(float(input()))\nmedia = sum(valores) / len(valores)\nacima = 0\nfor v in valores:\n    if v > media:\n        acima += 1\nprint(media, acima)",
+          "passos": "1. Criar uma lista vazia e ler os 5 números em um laço for, guardando cada um com .append().\n2. Calcular a média dividindo a soma dos elementos por 5.\n3. Percorrer a lista novamente com outro for, contando quantos elementos são maiores que a média calculada.\n4. Imprimir a média e a contagem.",
+          "dicas": [
+            "Você precisa guardar os 5 números em uma lista primeiro, porque só é possível saber quem ficou acima da média depois de ler todos e calcular a média.",
+            "Use um primeiro `for` para preencher a lista com `.append()` e calcular a soma total.",
+            "Depois de calcular a média fora do primeiro laço, faça um segundo `for` percorrendo a lista para contar quantos elementos satisfazem `valor > media`."
+          ]
+        },
+        {
+          "topico": 9,
+          "enunciado": "Defina uma função chamada `contar_vogais(texto)` que receba uma string como parâmetro e retorne a quantidade total de vogais (maiúsculas ou minúsculas, sem acento) presentes nela.",
+          "resposta_esperada": "def contar_vogais(texto):\n    cont = 0\n    for c in texto.lower():\n        if c in 'aeiou':\n            cont += 1\n    return cont",
+          "passos": "1. Definir a função com def contar_vogais(texto):.\n2. Inicializar um contador local em 0.\n3. Percorrer cada caractere da string convertida para minúsculas com .lower().\n4. Se o caractere pertencer a 'aeiou', incrementar o contador.\n5. Retornar o contador com return fora do laço for.",
+          "dicas": [
+            "Para não precisar testar vogais maiúsculas e minúsculas separadamente, converta o texto com `.lower()` antes ou durante o percorrimento.",
+            "Percorra a string com um laço `for` e use o operador `in` para verificar se cada caractere pertence a `'aeiou'`.",
+            "Use `return` (e não `print`) para devolver o contador, garantindo que o `return` fique fora do bloco do `for`."
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Lista 2 - Avaliativa",
+      "avaliativa": true,
+      "exercicios": [
+        {
+          "topico": 2,
+          "enunciado": "Escreva um programa que leia um tempo total em segundos (inteiro) e o converta para o formato horas, minutos e segundos restantes, exibindo os três valores inteiros separados por espaço.",
+          "resposta_esperada": "total = int(input())\nhoras = total // 3600\nresto = total % 3600\nminutos = resto // 60\nsegundos = resto % 60\nprint(horas, minutos, segundos)",
+          "passos": "1. Ler o total de segundos como inteiro.\n2. Obter as horas inteiras dividindo o total por 3600 com divisão inteira (//).\n3. Obter o que sobrou de segundos após tirar as horas usando o operador de resto (%) por 3600.\n4. Dividir esse resto por 60 com // para achar os minutos e usar % 60 para achar os segundos finais.\n5. Exibir horas, minutos e segundos.",
+          "dicas": [
+            "Pense em quantos segundos cabem em 1 minuto (60) e quantos segundos cabem em 1 hora (60 * 60 = 3600).",
+            "Os operadores de divisão inteira (`//`) e resto da divisão (`%`) permitem separar a parte inteira do que sobrou para a próxima unidade.",
+            "Primeiro extraia as horas inteiras dividindo por 3600 e pegue o resto dessa divisão; depois repita o raciocínio com esse resto dividindo por 60."
+          ]
+        },
+        {
+          "topico": 3,
+          "enunciado": "Leia um número inteiro de exatamente 3 dígitos (entre 100 e 999) e exiba a soma dos seus três algarismos usando apenas operadores aritméticos (sem converter para string).",
+          "resposta_esperada": "n = int(input())\ncentena = n // 100\ndezena = (n // 10) % 10\nunidade = n % 10\nprint(centena + dezena + unidade)",
+          "passos": "1. Ler o número inteiro de 3 dígitos.\n2. Extrair o dígito da centena fazendo a divisão inteira por 100.\n3. Extrair o dígito da dezena tirando o resto por 100 e dividindo de forma inteira por 10 (ou dividindo por 10 e tirando o resto por 10).\n4. Extrair o dígito da unidade com o resto da divisão por 10.\n5. Somar os três dígitos extraídos e exibir o resultado.",
+          "dicas": [
+            "Observe o que acontece na base 10 quando você divide um número por 10 ou por 100 usando divisão inteira (`//`) e resto (`%`).",
+            "O último dígito (unidade) de qualquer inteiro positivo sempre é o resto da divisão desse número por 10.",
+            "Para isolar a centena, veja quantas vezes 100 cabe no número; para a dezena, remova a unidade com `// 10` e depois pegue o último dígito do que restou."
+          ]
+        },
+        {
+          "topico": 4,
+          "enunciado": "Leia três valores reais positivos A, B e C. Verifique se eles podem formar os lados de um triângulo (cada lado deve ser estritamente menor que a soma dos outros dois). Caso formem, classifique-o em 'Equilatero', 'Isosceles' ou 'Escaleno'; caso contrário, exiba 'Nao forma triangulo'.",
+          "resposta_esperada": "a = float(input())\nb = float(input())\nc = float(input())\nif a < b + c and b < a + c and c < a + b:\n    if a == b and b == c:\n        print('Equilatero')\n    elif a == b or a == c or b == c:\n        print('Isosceles')\n    else:\n        print('Escaleno')\nelse:\n    print('Nao forma triangulo')",
+          "passos": "1. Ler os três lados A, B e C como números reais.\n2. Testar primeiro a condição de existência do triângulo: A < B + C e B < A + C e C < A + B.\n3. Se não cumprir, exibir 'Nao forma triangulo'.\n4. Se cumprir, testar a igualdade dos lados: se os três forem iguais ('Equilatero'), senão se pelo menos dois forem iguais ('Isosceles'), senão ('Escaleno').",
+          "dicas": [
+            "Antes de comparar se os lados são iguais entre si, é obrigatório verificar se as três medidas conseguem fechar um triângulo.",
+            "A condição de existência exige que as três desigualdades valham ao mesmo tempo (use `and` entre elas).",
+            "Dentro do bloco válido, teste primeiro o caso mais restritivo (todos os três lados iguais) antes de testar se apenas dois lados são iguais."
+          ]
+        },
+        {
+          "topico": 5,
+          "enunciado": "Um número inteiro positivo N (com N >= 2) é primo se possui apenas dois divisores: 1 e ele mesmo. Escreva um programa que leia um inteiro N >= 2 e utilize um laço para verificar se N é 'Primo' ou 'Composto'.",
+          "resposta_esperada": "n = int(input())\ndiv = 2\neh_primo = True\nwhile div * div <= n:\n    if n % div == 0:\n        eh_primo = False\n        break\n    div += 1\nif eh_primo:\n    print('Primo')\nelse:\n    print('Composto')",
+          "passos": "1. Ler o inteiro N.\n2. Criar uma variável booleana indicadora (ou contador de divisores) e testar possíveis divisores a partir de 2.\n3. Verificar em cada passo se o resto da divisão de N pelo candidato a divisor é zero.\n4. Se encontrar algum divisor entre 2 e N-1, marcar como composto; se terminar o laço sem encontrar nenhum, é primo.",
+          "dicas": [
+            "Para saber se N é primo, você precisa testar se existe algum número inteiro entre `2` e `N - 1` que divida `N` exatamente (resto igual a zero).",
+            "Use uma variável indicadora (como `eh_primo = True`) antes do laço e mude-a para `False` se encontrar algum divisor.",
+            "Cuidado para não decidir que o número é primo na primeira divisão que der resto diferente de zero: só é possível confirmar que é primo depois de testar os candidatos no laço."
+          ]
+        },
+        {
+          "topico": 6,
+          "enunciado": "Na sequência de Fibonacci, os dois primeiros termos são 0 e 1, e cada termo seguinte é a soma dos dois imediatamente anteriores (0, 1, 1, 2, 3, 5, 8...). Leia um inteiro N (N >= 1) e exiba os N primeiros termos da sequência.",
+          "resposta_esperada": "n = int(input())\na = 0\nb = 1\nfor _ in range(n):\n    print(a)\n    proximo = a + b\n    a = b\n    b = proximo",
+          "passos": "1. Ler a quantidade de termos N.\n2. Inicializar duas variáveis guardando os dois termos atuais: o anterior (0) e o atual (1).\n3. Repetir N vezes com um laço for.\n4. A cada repetição, exibir o primeiro termo, calcular a soma dos dois e atualizar as duas variáveis para avançar um passo na sequência.",
+          "dicas": [
+            "Você só precisa manter duas variáveis na memória a cada passo: o termo atual e o próximo termo.",
+            "Comece com duas variáveis valendo `0` e `1` antes de entrar no laço `for` que se repete `N` vezes.",
+            "Ao atualizar os valores dentro do laço, calcule a soma em uma variável auxiliar antes de sobrescrever as variáveis anteriores."
+          ]
+        },
+        {
+          "topico": 7,
+          "enunciado": "Leia um inteiro N e, em seguida, leia N números inteiros armazenando-os em uma lista. Crie e exiba uma nova lista contendo apenas os elementos sem repetição, mantendo a ordem em que apareceram pela primeira vez (sem usar `set`).",
+          "resposta_esperada": "n = int(input())\noriginal = []\nfor _ in range(n):\n    original.append(int(input()))\nunicos = []\nfor x in original:\n    if x not in unicos:\n        unicos.append(x)\nprint(unicos)",
+          "passos": "1. Ler N e preencher a lista original com os N inteiros.\n2. Criar uma segunda lista vazia para guardar os elementos únicos.\n3. Percorrer cada elemento da lista original na ordem em que estão.\n4. Antes de adicionar o elemento na segunda lista, verificar se ele ainda não está presente nela.",
+          "dicas": [
+            "Em vez de tentar remover elementos da lista original enquanto a percorre, é muito mais simples construir uma segunda lista começando vazia.",
+            "Percorra a lista original elemento por elemento usando um laço `for`.",
+            "Para cada item visitado, verifique se ele já foi adicionado na nova lista antes de chamar `.append()`."
+          ]
+        },
+        {
+          "topico": 7,
+          "enunciado": "Dada uma lista com N números inteiros distintos (N >= 2) lidos do usuário, encontre e exiba o segundo maior valor da lista sem utilizar a função `sort()` ou `sorted()`.",
+          "resposta_esperada": "n = int(input())\nlista = [int(input()) for _ in range(n)]\nif lista[0] > lista[1]:\n    maior, segundo = lista[0], lista[1]\nelse:\n    maior, segundo = lista[1], lista[0]\nfor x in lista[2:]:\n    if x > maior:\n        segundo = maior\n        maior = x\n    elif x > segundo:\n        segundo = x\nprint(segundo)",
+          "passos": "1. Ler N e os N inteiros distintos para uma lista.\n2. Inicializar duas variáveis ('maior' e 'segundo') com base nos dois primeiros elementos da lista.\n3. Percorrer os demais elementos da lista comparando cada valor com 'maior' e com 'segundo'.\n4. Quando um número superar o 'maior', o antigo 'maior' passa a ser o 'segundo' antes de atualizar o 'maior'; caso supere apenas o 'segundo', atualizar apenas o 'segundo'.",
+          "dicas": [
+            "Mantenha duas variáveis acompanhando a busca: uma para o campeão (maior valor até agora) e outra para o vice-campeão (segundo maior até agora).",
+            "Pense no que acontece com o antigo maior valor quando você encontra um número ainda maior do que ele na lista.",
+            "Não esqueça do segundo caso: um número pode ser menor que o `maior` atual, mas ainda assim ser maior que o `segundo` atual."
+          ]
+        },
+        {
+          "topico": 8,
+          "enunciado": "Escreva um programa que leia uma frase e verifique se ela é um palíndromo (lê-se igual de trás para frente, desconsiderando espaços em branco e diferenças entre letras maiúsculas e minúsculas). Exiba 'Palindromo' ou 'Nao palindromo'.",
+          "resposta_esperada": "frase = input()\nlimpa = frase.replace(' ', '').lower()\nif limpa == limpa[::-1]:\n    print('Palindromo')\nelse:\n    print('Nao palindromo')",
+          "passos": "1. Ler a frase completa com input().\n2. Normalizar a string convertendo tudo para minúsculas e removendo os espaços em branco.\n3. Comparar a string limpa com a sua versão invertida.\n4. Exibir 'Palindromo' se forem iguais ou 'Nao palindromo' caso contrário.",
+          "dicas": [
+            "Frases como 'A base do teto desaba' só ficam idênticas de trás para frente depois que você uniformiza maiúsculas/minúsculas e retira os espaços.",
+            "Use métodos de string para deixar tudo em minúsculas e remover os caracteres de espaço antes de inverter.",
+            "Com a string limpa em mãos, compare-a com sua versão invertida obtida por fatiamento ou laço."
+          ]
+        },
+        {
+          "topico": 9,
+          "enunciado": "Implemente uma função `mdc(a, b)` que receba dois inteiros positivos e retorne o Máximo Divisor Comum entre eles utilizando o algoritmo de Euclides (divisões sucessivas). No programa principal, leia dois inteiros e imprima o retorno da função.",
+          "resposta_esperada": "def mdc(a, b):\n    while b != 0:\n        resto = a % b\n        a = b\n        b = resto\n    return a\n\nx = int(input())\ny = int(input())\nprint(mdc(x, y))",
+          "passos": "1. Definir a função mdc(a, b).\n2. Enquanto o segundo número (b) for diferente de zero, calcular o resto da divisão de a por b.\n3. Atualizar a para receber o valor de b, e b para receber o resto calculado.\n4. Quando b chegar a zero, retornar o valor atual de a.",
+          "dicas": [
+            "Pelo algoritmo de Euclides, o MDC entre `a` e `b` é igual ao MDC entre `b` e o resto da divisão `a % b`.",
+            "Dentro da função, use um laço `while` que continue repetindo enquanto o divisor atual for diferente de zero.",
+            "A cada passo do laço, guarde o resto `a % b`, passe o valor de `b` para `a` e o resto para `b`; quando o resto zerar, o último divisor não nulo estará em `a`."
+          ]
+        },
+        {
+          "topico": 10,
+          "enunciado": "Leia um inteiro N (N >= 2) e em seguida os elementos inteiros de uma matriz quadrada N x N (lidos linha por linha). Calcule e exiba a diferença entre a soma da diagonal principal e a soma da diagonal secundária (principal menos secundária).",
+          "resposta_esperada": "n = int(input())\nmatriz = []\nfor i in range(n):\n    linha = []\n    for j in range(n):\n        linha.append(int(input()))\n    matriz.append(linha)\nsoma_p = 0\nsoma_s = 0\nfor i in range(n):\n    soma_p += matriz[i][i]\n    soma_s += matriz[i][n - 1 - i]\nprint(soma_p - soma_s)",
+          "passos": "1. Ler a dimensão N e preencher a matriz N x N como uma lista de listas.\n2. Inicializar dois acumuladores: um para a diagonal principal e outro para a diagonal secundária.\n3. Percorrer os índices da matriz somando os elementos onde linha == coluna (diagonal principal) e onde linha + coluna == N - 1 (diagonal secundária).\n4. Exibir a subtração entre as duas somas.",
+          "dicas": [
+            "Desenhe os índices `(i, j)` de uma matriz 3x3 no papel e observe a relação matemática entre `i` e `j` em cada uma das duas diagonais.",
+            "Na diagonal principal, o índice da linha é sempre igual ao índice da coluna (`i == j`).",
+            "Na diagonal secundária de uma matriz `N x N`, a soma dos índices `i + j` é sempre igual a `N - 1` (ou seja, para a linha `i`, a coluna correspondente é `N - 1 - i`)."
+          ]
+        }
+      ]
+    }
+  ]
+}

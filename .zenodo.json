@@ -1,0 +1,48 @@
+{
+  "title": "Chatbot Tutor: salvaguardas fora do modelo de linguagem — código, conjunto de teste e execuções da avaliação",
+  "upload_type": "software",
+  "description": "Código do Chatbot Tutor (Django) e materiais de reprodução do artigo \"Salvaguardas fora do modelo de linguagem em um chatbot tutor para o ensino de programação: implementação e avaliação\" (TCC, Engenharia da Computação, Universidade São Judas Tadeu, 2026): conjunto de teste de 150 perguntas rotuladas (SHA-256 81baa624fcda42802e0b672519108502471ca78a54ae9c56f0ffa8b74c207525), instruções do tutor (versão v2), instruções do juiz e as 1.350 execuções da avaliação.",
+  "creators": [
+    {
+      "name": "Ferreira, Cauã Ribeiro",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Mudesto, David Gabriel Sousa",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Neto, Domenico Napolitano",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Araújo, Gabriel da Silva",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Reche, Gabriel Moreira",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Silva, Kaue Pinheiro Marques da",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Fogaça, Luiz Henrique Barbosa",
+      "affiliation": "Universidade São Judas Tadeu"
+    },
+    {
+      "name": "Silva, Wallis Medeiros Da",
+      "affiliation": "Universidade São Judas Tadeu"
+    }
+  ],
+  "license": "MIT",
+  "language": "por",
+  "keywords": [
+    "chatbot tutor",
+    "large language models",
+    "guardrails",
+    "programming education",
+    "evaluation"
+  ]
+}

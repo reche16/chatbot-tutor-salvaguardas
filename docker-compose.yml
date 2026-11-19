@@ -1,0 +1,36 @@
+# Contêineres da Seção 4.3.1: aplicação, worker, PostgreSQL e Redis (RNF07).
+# Uso: copie ambiente.exemplo para .env, ajuste e rode `docker compose up --build`.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: tutor
+      POSTGRES_USER: tutor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tutor}
+    volumes: [dados_pg:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tutor"]
+      interval: 5s
+      retries: 10
+  redis:
+    image: redis:7
+  app:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://tutor:${POSTGRES_PASSWORD:-tutor}@db:5432/tutor
+      REDIS_URL: redis://redis:6379/0
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_started}
+  worker:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://tutor:${POSTGRES_PASSWORD:-tutor}@db:5432/tutor
+      REDIS_URL: redis://redis:6379/0
+    command: celery -A config worker -B -l info
+    depends_on: [app]
+volumes:
+  dados_pg:

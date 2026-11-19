@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block titulo %}{% if primeira_vez %}Boas-vindas{% else %}Como funciona{% endif %} · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="boas-vindas">
+{% if user.eh_professor %}
+  <h1>{% if primeira_vez %}Boas-vindas ao Chatbot Tutor{% if user.first_name %}, {{ user.first_name }}{% endif %}{% else %}Como funciona o Chatbot Tutor{% endif %}</h1>
+  <p class="lead">O Chatbot Tutor é a primeira linha de apoio aos alunos de {% for d in disciplinas %}{{ d.nome }}{% if not forloop.last %}, {% endif %}{% empty %}sua disciplina{% endfor %}: ele tira dúvidas a qualquer hora, explica conceitos e orienta os exercícios das listas sem entregar a resposta. Você mantém o conteúdo que ele usa e acompanha onde a turma tem mais dificuldade.</p>
+
+  <h2>O que você encontra aqui</h2>
+  <div class="recursos">
+    <div class="cartao"><strong>Métricas</strong><p>Tópicos com mais dúvidas, perguntas que o tutor não soube responder (sinal de material faltando) e quanto foi resolvido sem precisar de você. Dá para exportar em CSV.</p></div>
+    <div class="cartao"><strong>Dúvidas</strong><p>Perguntas que os alunos encaminharam, com o histórico da conversa. Sua resposta aparece para o aluno no histórico dele.</p></div>
+    <div class="cartao"><strong>Revisão</strong><p>Respostas que os alunos marcaram como não úteis, sem identificar o aluno, com os materiais que o tutor usou.</p></div>
+    <div class="cartao"><strong>Conteúdo</strong><p>Tópicos da ementa, materiais, perguntas frequentes e listas de exercícios. O tutor passa a usar uma alteração assim que você salva.</p></div>
+  </div>
+
+  <h2>Como o tutor responde</h2>
+  <ul>
+    <li>Só com o material cadastrado no Conteúdo. Se o assunto não estiver lá, ele avisa o aluno e oferece encaminhar a dúvida a você.</li>
+    <li>Em lista avaliativa, a resposta esperada e os passos de resolução nunca vão para a inteligência artificial, e uma verificação bloqueia qualquer resposta que traga a solução. O tutor também não diz ao aluno se a resposta dele está certa.</li>
+    <li>Ele pode errar. A Revisão existe para você corrigir o material quando isso acontecer.</li>
+  </ul>
+
+  <h2>Dados dos alunos</h2>
+  <ul>
+    <li>Você vê números agregados da turma. Tópicos com perguntas de menos de cinco alunos aparecem agrupados, para ninguém ser identificado.</li>
+    <li>Pergunta com nome do aluno só aparece para você quando ele mesmo a encaminha.</li>
+    <li>Nomes, e-mails e matrículas são retirados das perguntas antes de qualquer envio ao serviço de inteligência artificial (Google Gemini).</li>
+  </ul>
+{% else %}
+  <h1>{% if primeira_vez %}Boas-vindas ao Chatbot Tutor{% if user.first_name %}, {{ user.first_name }}{% endif %}{% else %}Como funciona o Chatbot Tutor{% endif %}</h1>
+  <p class="lead">O Chatbot Tutor é um assistente de estudos de {% for d in disciplinas %}{{ d.nome }}{% if not forloop.last %}, {% endif %}{% empty %}sua disciplina{% endfor %}. Ele tira dúvidas a qualquer hora, explica conceitos e acompanha você nos exercícios das listas, passo a passo, sem entregar a resposta pronta.</p>
+
+  <h2>O que você pode fazer</h2>
+  <div class="recursos">
+    <div class="cartao"><strong>Tirar dúvidas</strong><p>Escreva do seu jeito, por exemplo: “qual a diferença entre while e for?”.</p></div>
+    <div class="cartao"><strong>Entender um conceito</strong><p>No menu <em>Atendimento</em>, escolha “Explicar um conceito” e receba a definição, um exemplo em Python e o material de onde veio.</p></div>
+    <div class="cartao"><strong>Fazer exercícios</strong><p>No mesmo menu, escolha um exercício da lista de prática ou da avaliativa e mande sua dúvida ou sua tentativa. O tutor indica o próximo passo.</p></div>
+  </div>
+
+  <h2>Como o tutor responde</h2>
+  <ul>
+    <li>Usa só o material da disciplina, cadastrado pelo professor. Se o assunto não estiver lá, ele avisa em vez de inventar, e você pode encaminhar a dúvida ao professor.</li>
+    <li>Em lista avaliativa, ele não mostra a solução nem diz se a sua está certa: as dicas são para você chegar lá. Na lista de prática, ele confirma quando você acerta.</li>
+    <li>Ele pode errar. Confira com o material da aula e marque “Não útil” quando uma resposta não ajudar.</li>
+  </ul>
+
+  <h2>Seus dados</h2>
+  <ul>
+    <li>Suas conversas ficam no seu histórico, e só você as vê.</li>
+    <li>O professor vê números da turma, sem nomes. Ele só vê uma pergunta sua com o seu nome se você a encaminhar, e vê sem o seu nome as respostas que você marcar como “Não útil”.</li>
+    <li>Antes de qualquer pergunta ir para a inteligência artificial (Google Gemini), o sistema tira dela nomes, e-mails e números de matrícula.</li>
+  </ul>
+{% endif %}
+
+  <div class="boas-vindas-rodape">
+    <p class="suave">Projeto de Trabalho de Conclusão de Curso de Engenharia da Computação, Universidade São Judas Tadeu, 2026. Versão de teste.</p>
+    {% if primeira_vez %}
+      <form method="post" action="{% url 'boas_vindas' %}">{% csrf_token %}<button type="submit">Começar</button></form>
+    {% else %}
+      <a class="botao" href="{% url 'inicio' %}">{% if user.eh_professor %}Ir para as métricas{% else %}Ir para as disciplinas{% endif %}</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

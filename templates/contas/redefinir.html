@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Redefinir senha · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="cartao login"><h1>Redefinir senha</h1>
+<form method="post">{% csrf_token %}
+  {% if form.errors %}<div class="flash-erro" role="alert">{{ form.errors }}</div>{% endif %}
+  <div class="campo"><label for="id_email">E-mail institucional</label>
+  <input type="email" name="email" id="id_email" autocomplete="email" required></div>
+  <button type="submit">Enviar link</button>
+</form></div>
+{% endblock %}

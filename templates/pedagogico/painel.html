@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Métricas pedagógicas · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<h1>Métricas pedagógicas</h1>
+<form class="linha cartao" method="get">
+  <label>Disciplina <select name="disciplina">{% for d in disciplinas %}<option value="{{ d.id }}" {% if d == disciplina %}selected{% endif %}>{{ d }}</option>{% endfor %}</select></label>
+  <label>De <input type="date" name="inicio" value="{{ filtro.inicio }}"></label>
+  <label>Até <input type="date" name="fim" value="{{ filtro.fim }}"></label>
+  <button type="submit">Atualizar</button>
+  {% if disciplina %}<a class="botao secundario" href="{% url 'professor_csv' %}?disciplina={{ disciplina.id }}&inicio={{ filtro.inicio }}&fim={{ filtro.fim }}">Exportar CSV</a>{% endif %}
+</form>
+<div class="atalhos">
+  <a class="cartao atalho" href="{% url 'professor_duvidas' %}"><span>Dúvidas em aberto</span><strong>{{ abertas }} →</strong></a>
+  <a class="cartao atalho" href="{% url 'professor_revisao' %}"><span>Respostas para revisar</span><strong>{{ revisar }} →</strong></a>
+</div>
+{% if m %}
+<div class="grade">
+  <div class="cartao indicador"><div class="valor">{{ m.total }}</div><div class="rotulo">interações</div></div>
+  <div class="cartao indicador"><div class="valor">{% if m.taxa_resolucao_sem_encaminhamento is not None %}{{ m.taxa_resolucao_sem_encaminhamento }}%{% else %}—{% endif %}</div><div class="rotulo">resolvidas sem encaminhamento</div></div>
+  <div class="cartao indicador"><div class="valor">{{ m.nao_respondidas }}</div><div class="rotulo">não respondidas (fora da ementa ou sem material)</div></div>
+  <div class="cartao indicador"><div class="valor">{{ m.encaminhadas }}</div><div class="rotulo">encaminhadas ao professor</div></div>
+  <div class="cartao indicador"><div class="valor">{{ m.bloqueadas }}</div><div class="rotulo">bloqueadas pelo verificador</div></div>
+  <div class="cartao indicador"><div class="valor">{{ m.avaliadas_uteis }} / {{ m.avaliadas_nao_uteis }}</div><div class="rotulo">avaliadas úteis / não úteis</div></div>
+  <div class="cartao indicador"><div class="valor">{% if m.p95_ms %}{{ m.p95_ms }} ms{% else %}—{% endif %}</div><div class="rotulo">tempo de resposta (p95)</div></div>
+  <div class="cartao indicador"><div class="valor">{% if sus %}{{ sus.media }}{% else %}—{% endif %}</div><div class="rotulo">usabilidade (SUS, 0–100){% if sus %} · {{ sus.n }} resposta{{ sus.n|pluralize }}{% endif %}</div></div>
+</div>
+<h2>Tópicos com mais dúvidas</h2>
+<p class="suave">Tópicos com perguntas de menos de 5 alunos aparecem agrupados, para preservar a identidade de quem perguntou.</p>
+<div class="tabela-rolagem"><table class="numeros"><tr><th>Tópico</th><th>Interações</th><th>Não respondidas</th></tr>
+{% for t in m.por_topico %}<tr><td>{{ t.titulo }}</td><td>{{ t.total }}</td><td>{{ t.nao_respondidas }}</td></tr>
+{% empty %}<tr><td colspan="3" class="suave">Sem interações no período.</td></tr>{% endfor %}
+</table></div>
+<h2>Evolução por semana</h2>
+<div class="tabela-rolagem"><table class="numeros"><tr><th>Semana de</th><th>Interações</th><th>Respondidas</th></tr>
+{% for s in m.por_semana %}<tr><td>{{ s.semana|date:"d/m/Y" }}</td><td>{{ s.total }}</td><td>{{ s.respondidas }}</td></tr>{% endfor %}
+</table></div>
+{% else %}<div class="estado-vazio"><strong>Nenhuma turma disponível</strong>Você não leciona nenhuma turma ainda.</div>{% endif %}
+{% endblock %}

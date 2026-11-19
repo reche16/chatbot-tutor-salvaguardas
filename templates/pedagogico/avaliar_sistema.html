@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}Avaliar o sistema · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="boas-vindas">
+  <h1>Avaliar o sistema</h1>
+  <p class="lead">São 10 frases curtas sobre a sua experiência com o Chatbot Tutor (escala SUS, de usabilidade). Leva uns 2 minutos. Responda pela primeira impressão: não há resposta certa.{% if ja_respondeu %} Você já respondeu; enviar de novo atualiza a sua avaliação.{% endif %}</p>
+  {% if erros %}<p class="erro" role="alert">Falta responder: {{ erros|join:", " }}.</p>{% endif %}
+  <form method="post" class="sus">{% csrf_token %}
+    {% for item in itens %}
+    <fieldset class="cartao{% if item.n in erros %} com-erro{% endif %}">
+      <legend><span class="selo mono">{{ item.n }}</span> {{ item.texto }}</legend>
+      <div class="escala">
+        {% for valor, rotulo in escala %}
+        <label><input type="radio" name="q{{ item.n }}" value="{{ valor }}" {% if item.marcado == valor|stringformat:"s" %}checked{% endif %} required>
+          <span>{{ rotulo }}</span></label>
+        {% endfor %}
+      </div>
+    </fieldset>
+    {% endfor %}
+    <div class="campo">
+      <label for="comentario">Quer comentar algo? (opcional)</label>
+      <textarea id="comentario" name="comentario" rows="3" placeholder="O que ajudou, o que atrapalhou, o que faltou…">{{ comentario }}</textarea>
+    </div>
+    <div class="boas-vindas-rodape">
+      <p class="suave">As respostas servem à avaliação do TCC. O professor vê só a média da turma.</p>
+      <button type="submit">Enviar avaliação</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% load tutor_extras %}
+{% block titulo %}Revisar respostas · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<h1>Revisar respostas do chatbot</h1>
+<p class="suave">Respostas que os alunos marcaram como não úteis. O aluno não é identificado.</p>
+<nav class="segmentado" aria-label="Filtro de revisão"><a href="?" {% if pendentes %}aria-current="page"{% endif %}>Pendentes</a><a href="?todas=1" {% if not pendentes %}aria-current="page"{% endif %}>Todas</a></nav>
+{% for av in avaliacoes %}{% with i=av.interacao %}
+<div class="cartao">
+  <span class="suave">{{ i.data_hora|date:"d/m/Y" }} · tópico: {{ i.topico.titulo|default:"—" }}</span> <span class="selo mono">{{ i.modelo_pln }}</span> <span class="selo mono">instrução {{ i.versao_prompt }}</span>
+  {% if i.bloqueada_verificacao %}<span class="selo alerta">bloqueada pelo verificador</span>{% endif %}
+  <div class="msg aluno">{{ av.pergunta_anonima }}</div>
+  <div class="msg tutor">{{ av.resposta_anonima|default:"(sem resposta)"|markdown_simples }}</div>
+  {% if av.justificativa_anonima %}<p class="justificativa"><strong>Justificativa do aluno:</strong> {{ av.justificativa_anonima }}</p>{% endif %}
+  <p class="suave">Itens da base usados:
+    {% for it in i.itens_usados.all %}<a href="{% url 'conteudo:academico_itemconhecimento_change' it.id %}">{{ it.titulo }}</a>{% if not forloop.last %}; {% endif %}{% empty %}nenhum{% endfor %}</p>
+  {% if av.revisada %}<p><span class="selo ok">revisada</span> {{ av.nota_revisao }}</p>{% else %}
+  <form method="post" action="{% url 'professor_revisada' av.id %}" class="linha">{% csrf_token %}
+    <label for="nota-{{ av.id }}">Nota de revisão<input id="nota-{{ av.id }}" name="nota" placeholder="O que foi corrigido (opcional)"></label>
+    <button type="submit">Marcar como revisada</button>
+  </form>{% endif %}
+</div>
+{% endwith %}{% empty %}<div class="estado-vazio"><strong>Nada para revisar</strong>As respostas marcadas como não úteis aparecem aqui.</div>{% endfor %}
+{% endblock %}

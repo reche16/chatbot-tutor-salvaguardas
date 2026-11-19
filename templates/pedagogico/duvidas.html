@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load tutor_extras %}
+{% block titulo %}Dúvidas encaminhadas · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<h1>Dúvidas encaminhadas</h1>
+<nav class="segmentado" aria-label="Status das dúvidas"><a href="?status=ABERTA" {% if request.GET.status != 'RESPONDIDA' %}aria-current="page"{% endif %}>Abertas</a><a href="?status=RESPONDIDA" {% if request.GET.status == 'RESPONDIDA' %}aria-current="page"{% endif %}>Respondidas</a></nav>
+{% for it in itens %}{% with d=it.duvida %}
+<div class="cartao">
+  <span class="selo {% if d.status == 'ABERTA' %}alerta{% else %}ok{% endif %}">{{ d.get_status_display }}</span>
+  <strong>{{ d.aluno.get_full_name|default:d.aluno.email }}</strong> <span class="suave">{{ d.disciplina.codigo }} · {{ d.criada_em|date:"d/m/Y H:i" }}</span>
+  {% if d.mensagem %}<p><strong>Mensagem do aluno:</strong> {{ d.mensagem }}</p>{% endif %}
+  <details open><summary class="suave">Histórico da conversa</summary>
+    {% for h in it.historico %}
+      <div class="msg aluno">{{ h.pergunta }}</div>
+      <div class="msg tutor{% if not h.respondida %} sem-resposta{% endif %}">{{ h.resposta|default:"(sem resposta)"|markdown_simples }}</div>
+    {% endfor %}
+  </details>
+  {% if d.resposta %}<p class="resposta-professor"><strong>Sua resposta:</strong> {{ d.resposta.texto|linebreaksbr }}</p>{% endif %}
+  <form class="form-resposta" method="post" action="{% url 'professor_responder' d.id %}">{% csrf_token %}
+    <label for="resposta-{{ d.id }}">Resposta ao aluno</label><textarea id="resposta-{{ d.id }}" name="texto" rows="3" placeholder="Resposta ao aluno">{% if d.resposta %}{{ d.resposta.texto }}{% endif %}</textarea>
+    <button type="submit">{% if d.resposta %}Atualizar resposta{% else %}Responder{% endif %}</button>
+  </form>
+</div>
+{% endwith %}{% empty %}<div class="estado-vazio"><strong>Nenhuma dúvida aqui</strong>As dúvidas encaminhadas pelos alunos aparecem nesta lista.</div>{% endfor %}
+{% endblock %}

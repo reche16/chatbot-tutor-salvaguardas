@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Criar conta · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<div class="cartao login cadastro">
+  <h1>Criar conta de aluno</h1>
+  <p class="suave">Você entra na turma de Algoritmos e Programação. Professores e administradores são cadastrados pela coordenação.</p>
+  <form method="post" novalidate>{% csrf_token %}
+    {% if form.non_field_errors %}<p class="erro">{{ form.non_field_errors|join:" " }}</p>{% endif %}
+    <div class="grade-campos">
+    {% for campo in form %}
+      <div class="campo{% if campo.name == 'first_name' or campo.name == 'last_name' or campo.name == 'senha' or campo.name == 'senha2' %} campo-metade{% endif %}">
+        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+        {{ campo }}
+        {% if campo.help_text %}<small class="suave">{{ campo.help_text }}</small>{% endif %}
+        {% for erro in campo.errors %}<small class="erro">{{ erro }}</small>{% endfor %}
+      </div>
+    {% endfor %}
+    </div>
+    <button type="submit">Criar conta</button>
+  </form>
+  <p class="suave rodape-conta">Já tem conta? <a href="{% url 'login' %}">Entrar</a></p>
+</div>
+{% endblock %}

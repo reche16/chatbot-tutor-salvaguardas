@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Suas disciplinas · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<h1>Olá, {{ user.first_name|default:user.email }}</h1>
+{% if respostas_novas %}<div class="cartao banner"><span class="selo ok">novo</span> O professor respondeu {{ respostas_novas }} dúvida{{ respostas_novas|pluralize }}. <a href="{% url 'historico' %}">Ver no histórico</a></div>{% endif %}
+{% if pedir_sus %}<div class="cartao banner">Já usou o tutor algumas vezes? <a href="{% url 'avaliar_sistema' %}">Responda a avaliação do sistema</a>: são 10 frases, uns 2 minutos, e ajudam muito o TCC.</div>{% endif %}
+<h2>Suas disciplinas</h2>
+<div class="grade-disciplinas">
+{% for d in disciplinas %}
+  <div class="cartao disciplina"><span class="selo mono">{{ d.codigo }}</span><h2>{{ d.nome }}</h2>
+  <a class="botao" href="{% url 'chat' d.id %}">Abrir tutor →</a></div>
+{% empty %}
+  <div class="estado-vazio"><strong>Nenhuma disciplina disponível</strong>Você ainda não está matriculado em nenhuma turma. Fale com a coordenação.</div>
+{% endfor %}
+</div>
+{% endblock %}

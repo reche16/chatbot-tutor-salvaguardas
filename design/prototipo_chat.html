@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algoritmos e Programação · Chatbot Tutor</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-code: #0f172a;
+      --text-code: #f8fafc;
+
+      --border-default: #e2e8f0;
+      --border-strong: #cbd5e1;
+
+      --text-primary: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-subtle: #eff6ff;
+      --focus-ring: rgba(29, 78, 216, 0.25);
+
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #bbf7d0;
+
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+
+      --bubble-student-bg: #eff6ff;
+      --bubble-student-border: #bfdbfe;
+      --bubble-student-text: #0f172a;
+      --bubble-tutor-bg: #ffffff;
+      --bubble-tutor-border: #e2e8f0;
+      --bubble-unanswered-bg: #fffbeb;
+      --bubble-unanswered-border: #fde68a;
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 0.9375rem;
+      --text-lg: 1.125rem;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-full: 9999px;
+      --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-page: #0b0f19;
+        --bg-surface: #111827;
+        --bg-subtle: #1e293b;
+        --bg-code: #090d16;
+        --text-code: #e2e8f0;
+        --border-default: #1e293b;
+        --border-strong: #334155;
+        --text-primary: #f8fafc;
+        --text-muted: #94a3b8;
+        --text-subtle: #64748b;
+        --primary: #3b82f6;
+        --primary-hover: #2563eb;
+        --primary-subtle: #172554;
+        --focus-ring: rgba(59, 130, 246, 0.35);
+        --success: #4ade80; --success-bg: #052e16; --success-border: #14532d;
+        --warning: #fbbf24; --warning-bg: #451a03; --warning-border: #78350f;
+        --bubble-student-bg: #172554;
+        --bubble-student-border: #1e3a8a;
+        --bubble-student-text: #f8fafc;
+        --bubble-tutor-bg: #111827;
+        --bubble-tutor-border: #1e293b;
+        --bubble-unanswered-bg: #451a03;
+        --bubble-unanswered-border: #78350f;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--text-base);
+      line-height: 1.5;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Barra Superior */
+    header.topo {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      height: 52px;
+      flex-shrink: 0;
+    }
+    header.topo .faixa {
+      max-width: 1040px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: var(--text-base);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .marca svg { color: var(--primary); }
+    .marca-divisor { color: var(--border-strong); font-weight: 400; }
+    .marca-perfil {
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+    header.topo nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-right: auto;
+    }
+    header.topo nav a {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: var(--radius-md);
+      transition: background 0.12s, color 0.12s;
+    }
+    header.topo nav a:hover {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+    header.topo nav a.ativo {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+    .usuario-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+
+    /* Botões e controles */
+    button, .botao {
+      font-family: inherit;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: var(--primary);
+      color: #ffffff;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    button:hover, .botao:hover { background: var(--primary-hover); }
+    button:focus-visible, .botao:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+    button.secundario, .botao.secundario {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+    button.secundario:hover, .botao.secundario:hover {
+      background: var(--bg-subtle);
+    }
+    button.fantasma, .botao.fantasma {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: transparent;
+    }
+    button.fantasma:hover, .botao.fantasma:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+    button.sm, .botao.sm {
+      height: 28px;
+      padding: 0 10px;
+      font-size: var(--text-xs);
+    }
+
+    .selo {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: var(--text-xs);
+      font-weight: 500;
+      padding: 1px 8px;
+      border-radius: var(--radius-full);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-default);
+    }
+    .selo.mono { font-family: var(--font-mono); }
+    .selo.alerta {
+      background: var(--warning-bg);
+      color: var(--warning);
+      border-color: var(--warning-border);
+    }
+    .selo.ok {
+      background: var(--success-bg);
+      color: var(--success);
+      border-color: var(--success-border);
+    }
+
+    /* Container Principal do Chat */
+    main {
+      flex: 1;
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .chat-painel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xs);
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* Cabeçalho da Conversa */
+    .chat-barra {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: var(--bg-surface);
+    }
+    .disciplina-titulo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: auto;
+    }
+    .disciplina-titulo strong {
+      font-size: var(--text-base);
+      font-weight: 600;
+    }
+    .seletor-modo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+    select#modo {
+      font-family: inherit;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      height: 32px;
+      padding: 0 10px;
+      min-width: 250px;
+    }
+
+    /* Faixa Fixa do Enunciado */
+    #enunciado {
+      padding: 10px 16px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-default);
+      border-left: 3px solid var(--primary);
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .enunciado-rotulo {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+    }
+
+    /* Histórico de Mensagens */
+    #historico-chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--bg-page);
+    }
+
+    .msg-grupo {
+      display: flex;
+      flex-direction: column;
+      max-width: 82%;
+    }
+    .msg-grupo.aluno {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+    .msg-grupo.tutor {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .msg-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      font-size: var(--text-xs);
+      color: var(--text-subtle);
+    }
+    .msg-autor {
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .msg {
+      padding: 12px 16px;
+      border-radius: var(--radius-lg);
+      font-size: var(--text-base);
+      line-height: 1.55;
+      word-wrap: break-word;
+      width: 100%;
+    }
+    .msg p { margin: 0 0 10px; }
+    .msg p:last-child { margin-bottom: 0; }
+
+    .msg.aluno {
+      background: var(--bubble-student-bg);
+      border: 1px solid var(--bubble-student-border);
+      color: var(--bubble-student-text);
+      border-bottom-right-radius: 2px;
+    }
+    .msg.tutor {
+      background: var(--bubble-tutor-bg);
+      border: 1px solid var(--bubble-tutor-border);
+      color: var(--text-primary);
+      border-bottom-left-radius: 2px;
+      box-shadow: var(--shadow-xs);
+    }
+    .msg.tutor.sem-resposta {
+      background: var(--bubble-unanswered-bg);
+      border-color: var(--bubble-unanswered-border);
+    }
+
+    /* Blocos de Código */
+    .msg code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+    }
+    .msg :not(pre) > code {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      padding: 1px 5px;
+      border-radius: var(--radius-sm);
+    }
+    .bloco-codigo {
+      margin: 10px 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-code);
+      color: var(--text-code);
+    }
+    .bloco-codigo-topo {
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+    .msg pre {
+      margin: 0;
+      padding: 12px;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.45;
+    }
+
+    /* Barra de Ações sob cada resposta do tutor */
+    .acoes {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .acoes-divisor {
+      width: 1px;
+      height: 14px;
+      background: var(--border-strong);
+      margin: 0 4px;
+    }
+    .acoes-status {
+      font-size: var(--text-xs);
+      color: var(--text-subtle);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding-left: 4px;
+    }
+
+    /* Rodapé de Envio */
+    #form-chat {
+      padding: 12px 16px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-default);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .caixa-entrada {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
+      background: var(--bg-surface);
+      transition: border-color 0.12s, box-shadow 0.12s;
+    }
+    .caixa-entrada:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+    #entrada {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: var(--text-base);
+      line-height: 1.45;
+      resize: none;
+      min-height: 42px;
+      max-height: 140px;
+      padding: 0;
+    }
+    #entrada:focus { outline: none; box-shadow: none; }
+    .rodape-dica {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--text-xs);
+      color: var(--text-subtle);
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 0; }
+      .chat-painel { border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0; }
+      .msg-grupo { max-width: 94%; }
+      .usuario-nome { display: none; }
+      select#modo { min-width: 0; width: 100%; }
+      .seletor-modo { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="#inicio">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+      </svg>
+      <span>Chatbot Tutor</span>
+      <span class="marca-divisor">/</span>
+      <span class="marca-perfil">Aluno</span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#disciplinas" class="ativo">Disciplinas</a>
+      <a href="#historico">Histórico</a>
+    </nav>
+    <div class="usuario-area">
+      <span class="usuario-nome">aluno@exemplo.edu.br</span>
+      <button class="fantasma sm" type="button">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="chat-painel" aria-label="Atendimento da disciplina">
+    <div class="chat-barra">
+      <div class="disciplina-titulo">
+        <span class="selo mono">CCP101</span>
+        <strong>Algoritmos e Programação</strong>
+      </div>
+      <div class="seletor-modo">
+        <label for="modo">Modo:</label>
+        <select id="modo" aria-label="Tipo de atendimento">
+          <option value="DUVIDA">Dúvida livre</option>
+          <option value="CONCEITO">Explicar um conceito</option>
+          <optgroup label="Lista 02 — Estruturas de Repetição (avaliativa)">
+            <option value="EXERCICIO" selected>Exercício 3 — Soma de pares no intervalo</option>
+            <option value="EXERCICIO">Exercício 4 — Validação com while</option>
+          </optgroup>
+        </select>
+      </div>
+      <a class="botao secundario sm" href="?nova=1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        Nova conversa
+      </a>
+    </div>
+
+    <div id="enunciado">
+      <span class="enunciado-rotulo">Enunciado · Lista 02, Exercício 3 (Avaliativa)</span>
+      <span>Escreva um programa em Python que leia dois números inteiros <code>a</code> e <code>b</code> (com <code>a &lt;= b</code>) e exiba a soma de todos os números pares existentes no intervalo fechado <code>[a, b]</code>.</span>
+    </div>
+
+    <div id="historico-chat" aria-live="polite">
+      <!-- Mensagem 1: Aluno -->
+      <div class="msg-grupo aluno">
+        <div class="msg-cabecalho">
+          <span class="selo">Exercício 3</span>
+          <span class="msg-autor">Você</span>
+          <span>14:22</span>
+        </div>
+        <div class="msg aluno">
+          <p>Fiz o laço com <code>range(a, b)</code> e somei quando <code>n % 2 == 0</code>, mas quando testo com <code>a = 2</code> e <code>b = 6</code> o resultado dá 6 em vez de 12. Onde estou errando?</p>
+        </div>
+      </div>
+
+      <!-- Mensagem 2: Tutor (com bloco de código e ações completas) -->
+      <div class="msg-grupo tutor">
+        <div class="msg-cabecalho">
+          <span class="msg-autor">Tutor da Disciplina</span>
+          <span>14:22</span>
+        </div>
+        <div class="msg tutor">
+          <p>A sua condição para identificar números pares (<code>n % 2 == 0</code>) está certa. O problema está no limite superior da função <code>range()</code>.</p>
+          <p>Em Python, <code>range(inicio, fim)</code> gera valores começando em <code>inicio</code> e parando <strong>antes</strong> de <code>fim</code> (intervalo aberto no final). Veja o que acontece no seu teste:</p>
+          <div class="bloco-codigo">
+            <div class="bloco-codigo-topo">
+              <span>python</span>
+              <span>exemplo de comportamento</span>
+            </div>
+            <pre><code># Para a = 2 e b = 6, o 6 fica de fora:
+list(range(2, 6))  # produz [2, 3, 4, 5]</code></pre>
+          </div>
+          <p>Como o enunciado pede o intervalo <strong>fechado</strong> <code>[a, b]</code>, que ajuste você precisa fazer no segundo argumento do <code>range</code> para incluir o valor de <code>b</code> na repetição?</p>
+        </div>
+        <div class="acoes">
+          <button type="button" class="fantasma sm" aria-label="Marcar resposta como útil">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
+            </svg>
+            Útil
+          </button>
+          <button type="button" class="fantasma sm" aria-label="Marcar resposta como não útil">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/>
+            </svg>
+            Não útil
+          </button>
+          <span class="acoes-divisor" role="separator"></span>
+          <button type="button" class="fantasma sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+            </svg>
+            Encaminhar ao professor
+          </button>
+        </div>
+      </div>
+
+      <!-- Mensagem 3: Aluno -->
+      <div class="msg-grupo aluno">
+        <div class="msg-cabecalho">
+          <span class="selo">Exercício 3</span>
+          <span class="msg-autor">Você</span>
+          <span>14:24</span>
+        </div>
+        <div class="msg aluno">
+          <p>Entendi, usei <code>range(a, b + 1)</code> e funcionou! Aproveitando: a entrega da Lista 02 pode ser feita até domingo à meia-noite sem desconto de nota?</p>
+        </div>
+      </div>
+
+      <!-- Mensagem 4: Tutor (fora da base / oferece encaminhamento em destaque) -->
+      <div class="msg-grupo tutor">
+        <div class="msg-cabecalho">
+          <span class="msg-autor">Tutor da Disciplina</span>
+          <span>14:24</span>
+          <span class="selo alerta">Fora do material cadastrado</span>
+        </div>
+        <div class="msg tutor sem-resposta">
+          <p>Não encontrei regras sobre prazos de entrega ou critérios de penalização da Lista 02 no material cadastrado para <strong>Algoritmos e Programação</strong>. Você pode encaminhar esta dúvida diretamente ao professor.</p>
+        </div>
+        <div class="acoes">
+          <button type="button" class="botao sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+            </svg>
+            Encaminhar ao professor
+          </button>
+          <span class="acoes-status">Você marcou a resposta anterior como útil.</span>
+        </div>
+      </div>
+    </div>
+
+    <form id="form-chat" action="#" method="post">
+      <div class="caixa-entrada">
+        <textarea id="entrada" placeholder="Mande sua dúvida ou sua tentativa de solução…" rows="2" required maxlength="4000"></textarea>
+        <button type="submit" id="enviar">Enviar</button>
+      </div>
+      <div class="rodape-dica">
+        <span>Orientação passo a passo baseada no material da disciplina.</span>
+        <span><kbd>Enter</kbd> envia · <kbd>Shift + Enter</kbd> quebra linha</span>
+      </div>
+    </form>
+  </section>
+</main>
+
+</body>
+</html>

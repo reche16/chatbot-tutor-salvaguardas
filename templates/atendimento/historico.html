@@ -1,0 +1,43 @@
+{% extends "base.html" %}{% load tutor_extras %}
+{% block titulo %}Seu histórico · Chatbot Tutor{% endblock %}
+{% block conteudo %}
+<h1>Seu histórico</h1>
+<form class="linha cartao" method="get">
+  <label>De <input type="date" name="inicio" value="{{ filtro.inicio }}"></label>
+  <label>Até <input type="date" name="fim" value="{{ filtro.fim }}"></label>
+  <label>Tópico
+    <select name="topico"><option value="">Todos</option>
+    {% for t in topicos %}<option value="{{ t.id }}" {% if filtro.topico == t.id|stringformat:"s" %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select></label>
+  <button type="submit">Filtrar</button>
+</form>
+
+{% if duvidas %}
+<h2>Dúvidas encaminhadas ao professor</h2>
+{% for d in duvidas %}
+<div class="cartao">
+  {% if d.id in novas %}<span class="selo ok">resposta nova</span>{% endif %}
+  <span class="selo {% if d.status == 'ABERTA' %}alerta{% else %}ok{% endif %}">{{ d.get_status_display }}</span>
+  <span class="suave">{{ d.criada_em|date:"d/m/Y H:i" }}</span>
+  <p><strong>Sua pergunta:</strong> {{ d.interacao.pergunta }}</p>
+  {% if d.mensagem %}<p class="suave">Mensagem: {{ d.mensagem }}</p>{% endif %}
+  {% if d.resposta %}<p class="resposta-professor"><strong>Professor:</strong> {{ d.resposta.texto|linebreaksbr }}</p>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+<h2>Conversas</h2>
+<div class="tabela-rolagem"><table class="historico">
+<tr><th>Data</th><th>Tópico</th><th>Pergunta</th><th>Resposta</th><th>Conversa</th></tr>
+{% for i in interacoes %}
+<tr>
+  <td>{{ i.data_hora|date:"d/m H:i" }}</td>
+  <td>{{ i.topico.titulo|default:"—" }}</td>
+  <td>{{ i.pergunta|truncatechars:140 }}</td>
+  <td>{{ i.resposta|sem_markdown|default:"(sem resposta)"|truncatechars:200 }}</td>
+  <td><a class="botao secundario sm" href="{% url 'chat' i.disciplina_id %}?conversa={{ i.conversa_id }}">Abrir</a></td>
+</tr>
+{% empty %}<tr><td colspan="5" class="estado-vazio">Nada no período.</td></tr>
+{% endfor %}
+</table></div>
+{% endblock %}
